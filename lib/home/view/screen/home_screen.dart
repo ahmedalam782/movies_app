@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           BottomNavigationBarItem(
-            label: "Watchlist",
+            label: "WatchList",
             icon: Icon(
               Icons.collections_bookmark_sharp,
               size: 33,
