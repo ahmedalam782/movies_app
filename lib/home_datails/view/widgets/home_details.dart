@@ -5,11 +5,6 @@ class HomeDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        "HomeDetails",
-        style: Theme.of(context).textTheme.titleMedium,
-      ),
-    );
+    return const Placeholder();
   }
 }
