@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app_route/home_datails/view/widgets/movie_details.dart';
 
 import '../../../shared/components/movies_container.dart';
 import '../../../shared/components/movies_image_components.dart';
@@ -62,9 +63,14 @@ class _HomeDetailsState extends State<HomeDetails> {
                 textDirection: TextDirection.ltr,
                 bottom: -height * .08,
                 start: width * .05,
-                child: MoviesImageComponents(
-                  image: 'assets/images/movie_img_test.png',
-                  backgroundBookmarkIcon: AppTheme.darkGray.withOpacity(.87),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, MovieDetails.routeName);
+                  },
+                  child: MoviesImageComponents(
+                    image: 'assets/images/movie_img_test.png',
+                    backgroundBookmarkIcon: AppTheme.darkGray.withOpacity(.87),
+                  ),
                 ),
               ),
             ],
@@ -112,7 +118,13 @@ class _HomeDetailsState extends State<HomeDetails> {
                     separatorBuilder: (_, index) => const SizedBox(
                       width: 10,
                     ),
-                    itemBuilder: (_, index) => movies1[index],
+                    itemBuilder: (_, index) => GestureDetector(
+                      child: movies1[index],
+                      onTap: () => Navigator.pushNamed(
+                        context,
+                        MovieDetails.routeName,
+                      ),
+                    ),
                     itemCount: movies1.length,
                   ),
                 ),
@@ -127,8 +139,19 @@ class _HomeDetailsState extends State<HomeDetails> {
                     separatorBuilder: (_, index) => const SizedBox(
                       width: 10,
                     ),
-                    itemBuilder: (_, index) => movies[index],
-                    itemCount: movies1.length,
+                    itemBuilder: (_, index) => GestureDetector(
+                      child: movies[index],
+                      onTap: () {
+                        final movieComponent =
+                            movies[index] as MoviesImageComponents;
+                        Navigator.pushNamed(
+                          context,
+                          MovieDetails.routeName,
+                          arguments: {'movieTitle': movieComponent.movieTitle},
+                        );
+                      },
+                    ),
+                    itemCount: movies.length,
                   ),
                 ),
               ],

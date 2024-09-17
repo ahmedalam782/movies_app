@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:movies_app_route/home/view/screen/home_screen.dart';
+import 'package:movies_app_route/home_datails/view/widgets/movie_details.dart';
 import 'package:movies_app_route/shared/themes/app_theme.dart';
 
 Future<void> main() async {
@@ -20,6 +21,7 @@ class MovieApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         HomeScreen.routeName: (_) => HomeScreen(),
+        MovieDetails.routeName: (_) => MovieDetails(),
       },
       theme: AppTheme.lightTheme,
       themeMode: ThemeMode.light,
