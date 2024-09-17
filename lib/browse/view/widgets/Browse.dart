@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app_route/browse/view/widgets/category_item.dart';
+import 'package:movies_app_route/browse/view/widgets/category.dart';
 
 class Browse extends StatelessWidget {
   const Browse({super.key});
@@ -26,7 +26,7 @@ class Browse extends StatelessWidget {
           ),
           itemCount: 12,
           itemBuilder: (_, int index) {
-            return const CategoryItem();
+            return const Category();
           },
         ),
       ),
