@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app_route/browse/view/widgets/Browse.dart';
 import 'package:movies_app_route/home_datails/view/widgets/home_details.dart';
+import 'package:movies_app_route/home_datails/view/widgets/movie_details.dart';
 import 'package:movies_app_route/search/view/widgets/search.dart';
 import 'package:movies_app_route/watchlist/view/widgets/watchlist.dart';
 
