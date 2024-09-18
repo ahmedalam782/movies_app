@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:movies_app_route/browse/view/widgets/category_details.dart';
 import 'package:movies_app_route/home/view/screen/home_screen.dart';
 import 'package:movies_app_route/shared/themes/app_theme.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
+
   runApp(const MovieApp());
 }
 
