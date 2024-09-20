@@ -21,8 +21,8 @@ class Item extends StatelessWidget {
                       borderRadius: const BorderRadius.all(Radius.circular(5)),
                       child: Image.asset(
                         'assets/images/item_watch.png',
-                        height: 95,
-                        width: 145,
+                        height: 100,
+                        width: 150,
                       ),
                     ),
                   ),
@@ -41,16 +41,20 @@ class Item extends StatelessWidget {
                               color: AppTheme.darkGray,
                             ),
                       isSaved
-                          ? const Icon(
-                              Icons.check,
-                              size: 22,
-                              color: AppTheme.white,
-                            )
-                          : const Icon(
-                              Icons.add,
-                              size: 22,
-                              color: AppTheme.white,
-                            )
+                          ? IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.check,
+                                size: 22,
+                                color: AppTheme.white,
+                              ))
+                          : IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.add,
+                                size: 22,
+                                color: AppTheme.white,
+                              ))
                     ],
                   ),
                 ],
