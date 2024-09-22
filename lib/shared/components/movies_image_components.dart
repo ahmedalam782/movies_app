@@ -1,5 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app_route/shared/themes/app_theme.dart';
+
+import 'loading_indicator.dart';
 
 class MoviesImageComponents extends StatelessWidget {
   const MoviesImageComponents({
@@ -26,7 +29,6 @@ class MoviesImageComponents extends StatelessWidget {
     double height = MediaQuery.sizeOf(context).height;
     double width = MediaQuery.sizeOf(context).width;
     return Column(
-      mainAxisSize: MainAxisSize.min,
       children: [
         Stack(
           alignment: Alignment.topLeft,
@@ -36,22 +38,24 @@ class MoviesImageComponents extends StatelessWidget {
               borderRadius: const BorderRadius.all(
                 Radius.circular(4),
               ),
-              child: Image.asset(
-                image,
-                fit: BoxFit.contain,
-                height: 130,
+              child: CachedNetworkImage(
+                imageUrl: image,
+                placeholder: (context, url) => const LoadingIndicator(),
+                errorWidget: (_, __, ___) =>
+                    const Icon(Icons.image_not_supported),
+                height: 150,
                 width: 100,
               ),
             ),
             Positioned.directional(
               textDirection: TextDirection.ltr,
               top: -14.5,
-              start: -17.8,
+              start: -18.5,
               child: IconButton(
                   onPressed: () {},
                   icon: Stack(
                     alignment: Alignment.center,
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    clipBehavior: Clip.none,
                     children: [
                       Icon(
                         Icons.bookmark,
@@ -75,7 +79,7 @@ class MoviesImageComponents extends StatelessWidget {
         ),
         isOpen
             ? Container(
-                width: 100,
+                width: 95,
                 padding: EdgeInsets.symmetric(
                   horizontal: width * .02,
                   vertical: height * .01,

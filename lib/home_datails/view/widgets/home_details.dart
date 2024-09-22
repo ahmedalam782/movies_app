@@ -1,9 +1,14 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:movies_app_route/home_datails/view/widgets/movie_details.dart';
-
+import 'package:movies_app_route/home_datails/view/widgets/movies_slider_items.dart';
+import 'package:movies_app_route/home_datails/view/widgets/recommended_movies.dart';
+import 'package:movies_app_route/home_datails/view/widgets/releases_movies.dart';
+import 'package:provider/provider.dart';
+import '../../../shared/components/error_indicator.dart';
+import '../../../shared/components/loading_indicator.dart';
 import '../../../shared/components/movies_container.dart';
-import '../../../shared/components/movies_image_components.dart';
-import '../../../shared/themes/app_theme.dart';
+
+import '../../view_model/movies_view_model.dart';
 
 class HomeDetails extends StatefulWidget {
   const HomeDetails({super.key});
@@ -13,151 +18,100 @@ class HomeDetails extends StatefulWidget {
 }
 
 class _HomeDetailsState extends State<HomeDetails> {
-  List<Widget> movies = List.generate(
-    10,
-    (index) => MoviesImageComponents(
-      isOpen: true,
-      image: 'assets/images/movie_img_test3.png',
-      backgroundBookmarkIcon: AppTheme.darkGray.withOpacity(.87),
-      movieRate: '7.7',
-      movieDate: "2019  PG-13  2h 7m",
-      movieTitle: 'Deadpool 2',
-    ),
-  );
-  List<Widget> movies1 = List.generate(
-    10,
-    (index) => MoviesImageComponents(
-      image: 'assets/images/movie_img_test3.png',
-      backgroundBookmarkIcon: AppTheme.darkGray.withOpacity(.87),
-    ),
-  );
+  MoviesViewModel moviesViewModel = MoviesViewModel();
+
+  @override
+  void initState() {
+    moviesViewModel.getPopularMovies();
+    moviesViewModel.getUpcomingMovies();
+    moviesViewModel.getTopRatedMovies();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.sizeOf(context).height;
-    double width = MediaQuery.sizeOf(context).width;
-    return SafeArea(
-      child: Column(
-        children: [
-          Stack(
-            clipBehavior: Clip.none,
-            alignment: AlignmentDirectional.center,
-            children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(4),
-                ),
-                child: Image.asset(
-                  "assets/images/movie_img_test4.png",
-                  fit: BoxFit.cover,
-                  height: height * .217,
-                  width: double.infinity,
-                ),
-              ),
-              const Icon(
-                Icons.play_circle,
-                color: AppTheme.white,
-                size: 70,
-              ),
-              Positioned.directional(
-                textDirection: TextDirection.ltr,
-                bottom: -height * .08,
-                start: width * .05,
-                child: InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(context, MovieDetails.routeName);
-                  },
-                  child: MoviesImageComponents(
-                    image: 'assets/images/movie_img_test.png',
-                    backgroundBookmarkIcon: AppTheme.darkGray.withOpacity(.87),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: height * .02,
-          ),
-          Padding(
-            padding: EdgeInsetsDirectional.only(start: height * .13),
-            child: Column(
-              children: [
-                Text(
-                  "Dora and the lost city of gold",
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontSize: 14,
-                      ),
-                ),
-                SizedBox(
-                  height: height * .01,
-                ),
-                Text(
-                  "2019  PG-13  2h 7m",
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        fontSize: 10,
-                        color: AppTheme.gray,
-                      ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: height * .03,
-          ),
-          Expanded(
+    return ChangeNotifierProvider(
+      create: (_) => moviesViewModel,
+      child: Consumer<MoviesViewModel>(
+        builder: (_, moviesViewModel, __) {
+          return SafeArea(
             child: ListView(
               children: [
-                MoviesContainer(
-                  categoryName: 'New Releases ',
-                  height: 189,
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    separatorBuilder: (_, index) => const SizedBox(
-                      width: 10,
-                    ),
-                    itemBuilder: (_, index) => GestureDetector(
-                      child: movies1[index],
-                      onTap: () => Navigator.pushNamed(
-                        context,
-                        MovieDetails.routeName,
-                      ),
-                    ),
-                    itemCount: movies1.length,
-                  ),
+                moviesViewModel.popularIsLoading
+                    ? const LoadingIndicator()
+                    : moviesViewModel.errorPopularMessage != null
+                        ? ErrorIndicator(
+                            message: moviesViewModel.errorPopularMessage,
+                          )
+                        : CarouselSlider.builder(
+                            itemBuilder: (_, index, __) => MoviesSliderItems(
+                              popularMovies:
+                                  moviesViewModel.popularMovies[index],
+                            ),
+                            itemCount: moviesViewModel.popularMovies.length,
+                            options: CarouselOptions(
+                              height: height * .45,
+                              autoPlayCurve: Curves.fastEaseInToSlowEaseOut,
+                              scrollDirection: Axis.horizontal,
+                              clipBehavior: Clip.none,
+                              viewportFraction: 1,
+                              enlargeCenterPage: true,
+                              autoPlay: true,
+                              autoPlayInterval: const Duration(seconds: 3),
+                              autoPlayAnimationDuration:
+                                  const Duration(seconds: 3),
+                            ),
+                          ),
+                moviesViewModel.upcomingIsLoading
+                    ? const LoadingIndicator()
+                    : moviesViewModel.errorUpcomingMessage != null
+                        ? ErrorIndicator(
+                            message: moviesViewModel.errorUpcomingMessage,
+                          )
+                        : MoviesContainer(
+                            categoryName: 'New Releases ',
+                            height: 225,
+                            child: ListView.separated(
+                              scrollDirection: Axis.horizontal,
+                              separatorBuilder: (_, index) => const SizedBox(
+                                width: 10,
+                              ),
+                              itemBuilder: (_, index) => ReleasesMovies(
+                                upcomingMovies:
+                                    moviesViewModel.upcomingMovies[index],
+                              ),
+                              itemCount: moviesViewModel.upcomingMovies.length,
+                            ),
+                          ),
+                SizedBox(
+                  height: height * .03,
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
-                MoviesContainer(
-                  categoryName: 'Recommended',
-                  height: 259,
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    separatorBuilder: (_, index) => const SizedBox(
-                      width: 10,
-                    ),
-                    itemBuilder: (_, index) => GestureDetector(
-                      child: movies[index],
-                      onTap: () {
-                        final movieComponent =
-                            movies[index] as MoviesImageComponents;
-                        Navigator.pushNamed(
-                          context,
-                          MovieDetails.routeName,
-                          arguments: {'movieTitle': movieComponent.movieTitle},
-                        );
-                      },
-                    ),
-                    itemCount: movies.length,
-                  ),
-                ),
+                moviesViewModel.topRatedIsLoading
+                    ? const LoadingIndicator()
+                    : moviesViewModel.errorTopRatedMessage != null
+                        ? ErrorIndicator(
+                            message: moviesViewModel.errorTopRatedMessage,
+                          )
+                        : MoviesContainer(
+                            categoryName: 'Recommended',
+                            height: 310,
+                            child: ListView.separated(
+                              scrollDirection: Axis.horizontal,
+                              separatorBuilder: (_, index) => const SizedBox(
+                                width: 10,
+                              ),
+                              itemBuilder: (_, index) => RecommendedMovies(
+                                topRatedMovies:
+                                    moviesViewModel.topRatedMovies[index],
+                              ),
+                              itemCount: moviesViewModel.topRatedMovies.length,
+                            ),
+                          ),
               ],
             ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }

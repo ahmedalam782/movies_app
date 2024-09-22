@@ -23,7 +23,7 @@ class MoviesContainer extends StatelessWidget {
       height: height,
       padding: EdgeInsets.symmetric(
         horizontal: screenWidth * .06,
-        vertical: screenHeight * .01,
+        vertical: screenHeight * .02,
       ),
       decoration: BoxDecoration(
         color: AppTheme.white.withOpacity(.14),
@@ -42,8 +42,8 @@ class MoviesContainer extends StatelessWidget {
                   ),
             ),
           ),
-          const SizedBox(
-            height: 10,
+           SizedBox(
+            height: screenHeight*0.02,
           ),
           Expanded(child: child)
         ],

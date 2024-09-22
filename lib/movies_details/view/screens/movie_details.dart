@@ -18,7 +18,7 @@ class _MovieDetailsState extends State<MovieDetails> {
     10,
     (index) => MoviesImageComponents(
       isOpen: true,
-      image: 'assets/images/movie_img_test3.png',
+      image: 'https://image.tmdb.org/t/p/w500/1E5baAaEse26fej7uHcjOgEE2t2.jpg',
       backgroundBookmarkIcon: AppTheme.darkGray.withOpacity(.87),
       movieRate: '7.7',
       movieDate: "2019  PG-13  2h 7m",
@@ -165,7 +165,7 @@ class _MovieDetailsState extends State<MovieDetails> {
             ),
             MoviesContainer(
               categoryName: 'More Like This',
-              height: 259,
+              height: 285,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 separatorBuilder: (_, index) => const SizedBox(
