@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app_route/shared/themes/app_theme.dart';
 
-class WatchItem extends StatelessWidget {
-  const WatchItem({super.key});
+class Item extends StatelessWidget {
+  Item(this.isSaved, {super.key});
+  bool isSaved;
 
   @override
   Widget build(BuildContext context) {
@@ -20,23 +21,42 @@ class WatchItem extends StatelessWidget {
                       borderRadius: const BorderRadius.all(Radius.circular(5)),
                       child: Image.asset(
                         'assets/images/item_watch.png',
-                        height: 90,
-                        width: 140,
+                        height: 100,
+                        width: 150,
                       ),
                     ),
                   ),
-                  const Stack(alignment: Alignment.center, children: [
-                    Icon(
-                      Icons.bookmark,
-                      size: 40,
-                      color: AppTheme.primary,
-                    ),
-                    Icon(
-                      Icons.check,
-                      size: 25,
-                      color: AppTheme.white,
-                    ),
-                  ])
+                  Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      isSaved
+                          ? const Icon(
+                              Icons.bookmark,
+                              size: 40,
+                              color: AppTheme.primary,
+                            )
+                          : const Icon(
+                              Icons.bookmark,
+                              size: 40,
+                              color: AppTheme.darkGray,
+                            ),
+                      isSaved
+                          ? IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.check,
+                                size: 22,
+                                color: AppTheme.white,
+                              ))
+                          : IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.add,
+                                size: 22,
+                                color: AppTheme.white,
+                              ))
+                    ],
+                  ),
                 ],
               ),
               const Padding(

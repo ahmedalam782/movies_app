@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app_route/browse/view/widgets/item_in_category.dart';
+
+import 'package:movies_app_route/watchlist/view/widgets/item.dart';
 
 class CategoryDetails extends StatelessWidget {
   static const String routeName = '/category_details';
@@ -19,7 +20,7 @@ class CategoryDetails extends StatelessWidget {
       body: ListView.builder(
         itemCount: 10,
         itemBuilder: (_, int index) {
-          return const ItemInCategory();
+          return Item(false);
         },
       ),
     );

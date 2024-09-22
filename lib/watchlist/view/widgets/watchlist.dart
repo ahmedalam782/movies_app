@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app_route/watchlist/view/widgets/watch_item.dart';
+import 'package:movies_app_route/watchlist/view/widgets/item.dart';
 
 class Watchlist extends StatelessWidget {
   const Watchlist({super.key});
@@ -24,7 +24,7 @@ class Watchlist extends StatelessWidget {
             child: ListView.builder(
               itemCount: 5,
               itemBuilder: (_, int index) {
-                return const WatchItem();
+                return  Item(true);
               },
             ),
           ),
