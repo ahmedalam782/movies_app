@@ -36,13 +36,15 @@ class _CustomChipBuilderWidgetState extends State<CustomChipBuilderWidget> {
               // },
               // deleteIcon:
               //     const Icon(Icons.close, size: 18, color: Colors.black),
-              labelStyle: const TextStyle(fontWeight: FontWeight.bold),
+              labelStyle: Theme.of(context)
+                  .textTheme
+                  .titleLarge
+                  ?.copyWith(fontSize: 10),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                   side: const BorderSide(color: AppTheme.gray)),
               label: Text(
                 chipData[index],
-                style: const TextStyle(color: AppTheme.gray),
               ),
               backgroundColor: AppTheme.black,
             ),
