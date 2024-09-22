@@ -15,6 +15,7 @@ class MoviesPopularApi extends MoviesData {
     final Uri url = Uri.http(EndPoint.baseUrl, EndPoint.popular);
     final response = await ServiceLocator.apiConsumer.get(url, headers: {
       ApiKey.authorization: ApiKey.accessToken,
+      ApiKey.accept: ApiKey.applicationJson,
     });
     MoviesPopular moviesPopular = MoviesPopular.fromJson(response);
     if (moviesPopular.popularMovies != null) {
@@ -32,6 +33,7 @@ class MoviesPopularApi extends MoviesData {
     final Uri url = Uri.http(EndPoint.baseUrl, EndPoint.upcoming);
     final response = await ServiceLocator.apiConsumer.get(url, headers: {
       ApiKey.authorization: ApiKey.accessToken,
+      ApiKey.accept: ApiKey.applicationJson,
     });
     MoviesUpcoming moviesUpcoming = MoviesUpcoming.fromJson(response);
     if (moviesUpcoming.upcomingMovies != null) {
@@ -49,6 +51,7 @@ class MoviesPopularApi extends MoviesData {
     final Uri url = Uri.http(EndPoint.baseUrl, EndPoint.topRated);
     final response = await ServiceLocator.apiConsumer.get(url, headers: {
       ApiKey.authorization: ApiKey.accessToken,
+      ApiKey.accept: ApiKey.applicationJson,
     });
     MoviesTopRated moviesTopRated = MoviesTopRated.fromJson(response);
     if (moviesTopRated.topRatedMovies != null) {

@@ -8,6 +8,8 @@ class EndPoint {
 
 class ApiKey {
   static const String authorization = 'Authorization';
+  static const String accept = 'accept';
+  static const String applicationJson = 'application/json';
   static const String accessToken =
       "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjODU1N2M4YzEzYjE4ZDY1ZDIzZTRkZDUxNjkzMDBjNyIsIm5iZiI6MTcyNjg0MzQwNi40OTE5MjIsInN1YiI6IjY1NmZlM2Y1MzgzZGYyMDBlYjI2OTZjYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.SmmODtjDRKiXPNDiveLTwlvC82t-912nSq4FKCxZAPo";
   static const String page = 'page';
