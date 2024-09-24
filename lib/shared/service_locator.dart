@@ -6,5 +6,4 @@ import 'network/remote/http_consumer.dart';
 class ServiceLocator {
   static ApiConsumer apiConsumer = HttpConsumer();
   static MoviesData moviesData = MoviesPopularApi();
-
 }

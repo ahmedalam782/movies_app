@@ -1,4 +1,5 @@
 import '../../network/remote/end_point.dart';
+
 class ErrorServerModel {
   final bool? success;
   final int? statusCode;
