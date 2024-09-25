@@ -45,10 +45,13 @@ class _HomeDetailsState extends State<HomeDetails> {
                             message: moviesViewModel.errorPopularMessage,
                           )
                         : CarouselSlider.builder(
-                            itemBuilder: (_, index, __) => MoviesSliderItems(
-                              popularMovies:
-                                  moviesViewModel.popularMovies[index],
-                            ),
+                            itemBuilder: (_, index, __) {
+                              final movie =
+                                  moviesViewModel.popularMovies[index];
+                              return MoviesSliderItems(
+                                popularMovies: movie,
+                              );
+                            },
                             itemCount: moviesViewModel.popularMovies.length,
                             options: CarouselOptions(
                               height: height * .45,

@@ -5,11 +5,12 @@ import 'package:movies_app_route/movies_details/view/screens/movie_details_new.d
 import '../../../shared/Themes/app_theme.dart';
 import '../../../shared/components/loading_indicator.dart';
 import '../../../shared/network/remote/end_point.dart';
+import '../../data/models/similar_response/similar_response.dart';
 
-class RecommendedMovies extends StatelessWidget {
-  const RecommendedMovies({super.key, required this.topRatedMovies});
+class MoreLikeThis extends StatelessWidget {
+  const MoreLikeThis({super.key, required this.similarResponse});
 
-  final TopRatedMovies topRatedMovies;
+  final SimilarMovies similarResponse;
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +18,8 @@ class RecommendedMovies extends StatelessWidget {
     double width = MediaQuery.sizeOf(context).width;
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(
-          context,
-          MovieDetailsNew.routeName,
-          arguments: topRatedMovies,
-        );
+        Navigator.pushReplacementNamed(context, MovieDetailsNew.routeName,
+            arguments: similarResponse);
       },
       child: Column(
         children: [
@@ -35,7 +33,7 @@ class RecommendedMovies extends StatelessWidget {
                 ),
                 child: CachedNetworkImage(
                   imageUrl:
-                      "${EndPoint.imageBaseUrl}${topRatedMovies.posterPath}",
+                      "${EndPoint.imageBaseUrl}${similarResponse.posterPath}",
                   placeholder: (context, url) => const LoadingIndicator(),
                   errorWidget: (_, __, ___) =>
                       const Icon(Icons.image_not_supported),
@@ -102,7 +100,7 @@ class RecommendedMovies extends StatelessWidget {
                       width: 5,
                     ),
                     Text(
-                      topRatedMovies.voteAverage?.toStringAsFixed(2) ?? "",
+                      similarResponse.voteAverage?.toStringAsFixed(1) ?? "",
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                             fontSize: 10,
                           ),
@@ -113,7 +111,7 @@ class RecommendedMovies extends StatelessWidget {
                   height: 5,
                 ),
                 Text(
-                  topRatedMovies.title ?? "",
+                  similarResponse.title ?? "",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -124,7 +122,7 @@ class RecommendedMovies extends StatelessWidget {
                   height: 5,
                 ),
                 Text(
-                  topRatedMovies.releaseDate ?? "",
+                  similarResponse.releaseDate ?? "",
                   style: Theme.of(context)
                       .textTheme
                       .titleLarge

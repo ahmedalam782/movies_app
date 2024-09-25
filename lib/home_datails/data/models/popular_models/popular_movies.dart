@@ -35,7 +35,7 @@ class PopularMovies {
   factory PopularMovies.fromJson(Map<String, dynamic> json) => PopularMovies(
         adult: json[ApiKey.adult] as bool?,
         backdropPath: json[ApiKey.backdropPath] as String?,
-        genreIds: json[ApiKey.genreIds] as List<dynamic>? ,
+        genreIds: json[ApiKey.genreIds] as List<dynamic>?,
         id: json[ApiKey.id] as int?,
         originalLanguage: json[ApiKey.originalLanguage] as String?,
         originalTitle: json[ApiKey.originalTitle] as String?,

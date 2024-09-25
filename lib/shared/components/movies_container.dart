@@ -42,8 +42,8 @@ class MoviesContainer extends StatelessWidget {
                   ),
             ),
           ),
-           SizedBox(
-            height: screenHeight*0.02,
+          SizedBox(
+            height: screenHeight * 0.02,
           ),
           Expanded(child: child)
         ],
