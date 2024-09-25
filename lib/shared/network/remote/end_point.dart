@@ -3,8 +3,6 @@ class EndPoint {
   static const String popular = "/3/movie/popular";
   static const String upcoming = "/3/movie/upcoming";
   static const String topRated = "/3/movie/top_rated";
-  static const String categoriesList = "/3/genre/movie/list";
-  static const String moviesList = "/3/discover/movie";
   static const String imageBaseUrl = "https://image.tmdb.org/t/p/w500";
 }
 
@@ -38,6 +36,4 @@ class ApiKey {
   static const String dates = 'dates';
   static const String maximum = 'maximum';
   static const String minimum = 'minimum';
-  static const String genres = 'genres';
-  static const String name = 'name';
 }

@@ -24,7 +24,7 @@ class Watchlist extends StatelessWidget {
             child: ListView.builder(
               itemCount: 5,
               itemBuilder: (_, int index) {
-                return  Item(true);
+                return Item(true);
               },
             ),
           ),
