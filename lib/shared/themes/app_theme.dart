@@ -34,6 +34,10 @@ class AppTheme {
       progressIndicatorTheme: const ProgressIndicatorThemeData(
         color: primary,
       ),
+      dividerTheme: DividerThemeData(
+        thickness: 1,
+        color: gray,
+      ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         type: BottomNavigationBarType.fixed,
         backgroundColor: black,

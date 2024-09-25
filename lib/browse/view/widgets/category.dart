@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app_route/browse/view/widgets/category_details.dart';
-import 'package:movies_app_route/home/view/screen/home_screen.dart';
+import 'package:movies_app_route/browse/data/models/genres_movies.dart';
+
+import '../../../movies_category_details/view/screens/category_details.dart';
 
 class Category extends StatelessWidget {
-  const Category({super.key});
+  const Category({super.key, required this.category});
+
+  final Genres category;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(CategoryDetails.routeName);
+        Navigator.of(context)
+            .pushNamed(CategoryDetails.routeName, arguments: category);
       },
       child: Stack(
         alignment: Alignment.center,
@@ -26,7 +30,7 @@ class Category extends StatelessWidget {
             ),
           ),
           Text(
-            'category',
+            category.name ?? "",
             style: Theme.of(context).textTheme.titleLarge,
           ),
         ],

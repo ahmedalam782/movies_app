@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app_route/shared/components/custom_chip_categoryType.dart';
+import 'package:movies_app_route/shared/components/custom_chip_category_type.dart';
 import 'package:movies_app_route/shared/components/movies_container.dart';
 import 'package:movies_app_route/shared/components/movies_image_components.dart';
 import 'package:movies_app_route/shared/themes/app_theme.dart';
@@ -165,7 +165,7 @@ class _MovieDetailsState extends State<MovieDetails> {
             ),
             MoviesContainer(
               categoryName: 'More Like This',
-              height: 285,
+              height: 310,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 separatorBuilder: (_, index) => const SizedBox(

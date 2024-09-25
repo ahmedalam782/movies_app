@@ -1,8 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app_route/home_datails/data/models/top_rated_models/top_rated_movies.dart';
-import 'package:movies_app_route/home_datails/data/models/upcoming_models/movies_upcoming.dart';
-import 'package:movies_app_route/home_datails/data/models/upcoming_models/upcoming_movies.dart';
 
 import '../../../shared/Themes/app_theme.dart';
 import '../../../shared/components/loading_indicator.dart';

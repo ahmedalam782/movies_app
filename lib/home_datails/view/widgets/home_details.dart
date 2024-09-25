@@ -30,6 +30,7 @@ class _HomeDetailsState extends State<HomeDetails> {
 
   @override
   Widget build(BuildContext context) {
+
     double height = MediaQuery.sizeOf(context).height;
     return ChangeNotifierProvider(
       create: (_) => moviesViewModel,
@@ -51,14 +52,15 @@ class _HomeDetailsState extends State<HomeDetails> {
                             ),
                             itemCount: moviesViewModel.popularMovies.length,
                             options: CarouselOptions(
-                              height: height * .45,
+                              height: height * .4,
                               autoPlayCurve: Curves.fastEaseInToSlowEaseOut,
                               scrollDirection: Axis.horizontal,
                               clipBehavior: Clip.none,
                               viewportFraction: 1,
                               enlargeCenterPage: true,
                               autoPlay: true,
-                              autoPlayInterval: const Duration(seconds: 3),
+                              enlargeFactor: .15,
+                              autoPlayInterval: const Duration(seconds: 5),
                               autoPlayAnimationDuration:
                                   const Duration(seconds: 3),
                             ),
@@ -70,7 +72,7 @@ class _HomeDetailsState extends State<HomeDetails> {
                             message: moviesViewModel.errorUpcomingMessage,
                           )
                         : MoviesContainer(
-                            categoryName: 'New Releases ',
+                            categoryName: 'Upcoming ',
                             height: 225,
                             child: ListView.separated(
                               scrollDirection: Axis.horizontal,
@@ -94,7 +96,7 @@ class _HomeDetailsState extends State<HomeDetails> {
                             message: moviesViewModel.errorTopRatedMessage,
                           )
                         : MoviesContainer(
-                            categoryName: 'Recommended',
+                            categoryName: 'Top Rated',
                             height: 310,
                             child: ListView.separated(
                               scrollDirection: Axis.horizontal,

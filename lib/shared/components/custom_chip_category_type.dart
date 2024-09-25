@@ -11,7 +11,7 @@ class CustomChipBuilderWidget extends StatefulWidget {
 
 class _CustomChipBuilderWidgetState extends State<CustomChipBuilderWidget> {
   List<String> chipData = [
-    'Fantacy',
+    'Fantasy',
     'Action',
     'Drama',
     'Romance',
@@ -28,14 +28,6 @@ class _CustomChipBuilderWidgetState extends State<CustomChipBuilderWidget> {
           (index) => GestureDetector(
             onTap: () {},
             child: Chip(
-              // onDeleted: () {
-              //   setState(() {
-              //     // Remove the chip from the list and update the state
-              //     chipData.removeAt(index);
-              //   });
-              // },
-              // deleteIcon:
-              //     const Icon(Icons.close, size: 18, color: Colors.black),
               labelStyle: Theme.of(context)
                   .textTheme
                   .titleLarge
