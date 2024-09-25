@@ -1,5 +1,4 @@
 import 'package:movies_app_route/movies_details/data/models/movie_details_response/genre.dart';
-import 'package:movies_app_route/movies_details/data/models/similar_response/similar_response.dart';
 
 import '../models/similar_response/similarMovies.dart';
 

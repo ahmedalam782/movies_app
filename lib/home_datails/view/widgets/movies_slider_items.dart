@@ -5,7 +5,6 @@ import 'package:movies_app_route/movies_details/view/screens/movie_details_new.d
 import 'package:movies_app_route/shared/network/remote/end_point.dart';
 
 import '../../../shared/components/loading_indicator.dart';
-import '../../../shared/components/movies_image_components.dart';
 import '../../../shared/themes/app_theme.dart';
 import '../../data/models/popular_models/popular_movies.dart';
 

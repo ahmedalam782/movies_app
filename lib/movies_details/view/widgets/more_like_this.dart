@@ -5,7 +5,6 @@ import '../../../shared/Themes/app_theme.dart';
 import '../../../shared/components/loading_indicator.dart';
 import '../../../shared/network/remote/end_point.dart';
 import '../../data/models/similar_response/similarMovies.dart';
-import '../../data/models/similar_response/similar_response.dart';
 
 class MoreLikeThis extends StatelessWidget {
   const MoreLikeThis({super.key, required this.similarResponse});
