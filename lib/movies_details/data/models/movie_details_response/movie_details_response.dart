@@ -1,4 +1,5 @@
 import 'package:movies_app_route/shared/Exceptions/Error_Server_Model/error_server_model.dart';
+import 'package:movies_app_route/shared/network/remote/end_point.dart';
 
 import 'belongs_to_collection.dart';
 import 'genre.dart';
@@ -67,75 +68,54 @@ class MovieDetailsResponse {
 
   factory MovieDetailsResponse.fromJson(Map<String, dynamic> json) {
     return MovieDetailsResponse(
-      adult: json['adult'] as bool?,
+      adult: json[ApiKey.adult] as bool?,
       errorServerModel: ErrorServerModel.fromJson(json),
-      backdropPath: json['backdrop_path'] as String?,
-      belongsToCollection: json['belongs_to_collection'] == null
+      backdropPath: json[ApiKey.backdropPath] as String?,
+      belongsToCollection: json[ApiKey.belongsToCollection] == null
           ? null
           : BelongsToCollection.fromJson(
-              json['belongs_to_collection'] as Map<String, dynamic>),
-      budget: json['budget'] as int?,
-      genres: (json['genres'] as List<dynamic>?)
-          ?.map((e) => Genre.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      homepage: json['homepage'] as String?,
-      id: json['id'] as int?,
-      imdbId: json['imdb_id'] as String?,
-      originCountry: json['origin_country'] as List<dynamic>?,
-      originalLanguage: json['original_language'] as String?,
-      originalTitle: json['original_title'] as String?,
-      overview: json['overview'] as String?,
-      popularity: (json['popularity'] as num?)?.toDouble(),
-      posterPath: json['poster_path'] as String?,
-      productionCompanies: (json['production_companies'] as List<dynamic>?)
-          ?.map((e) => ProductionCompany.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      productionCountries: (json['production_countries'] as List<dynamic>?)
-          ?.map((e) => ProductionCountry.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      releaseDate: json['release_date'] as String?,
-      revenue: json['revenue'] as int?,
-      runtime: json['runtime'] as int?,
-      spokenLanguages: (json['spoken_languages'] as List<dynamic>?)
-          ?.map((e) => SpokenLanguage.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      status: json['status'] as String?,
-      tagline: json['tagline'] as String?,
-      title: json['title'] as String?,
-      video: json['video'] as bool?,
-      voteAverage: (json['vote_average'] as num?)?.toDouble(),
-      voteCount: json['vote_count'] as int?,
+              json[ApiKey.belongsToCollection] as Map<String, dynamic>),
+      budget: json[ApiKey.budget] as int?,
+      genres: json[ApiKey.genres] == null
+          ? null
+          : (json[ApiKey.genres] as List<dynamic>?)
+              ?.map((e) => Genre.fromJson(e as Map<String, dynamic>))
+              .toList(),
+      homepage: json[ApiKey.homepage] as String?,
+      id: json[ApiKey.id] as int?,
+      imdbId: json[ApiKey.imdbId] as String?,
+      originCountry: json[ApiKey.originCountry] as List<dynamic>?,
+      originalLanguage: json[ApiKey.originalLanguage] as String?,
+      originalTitle: json[ApiKey.originalTitle] as String?,
+      overview: json[ApiKey.overview] as String?,
+      popularity: (json[ApiKey.popularity] as num?)?.toDouble(),
+      posterPath: json[ApiKey.posterPath] as String?,
+      productionCompanies: json[ApiKey.productionCompanies] == null
+          ? null
+          : (json[ApiKey.productionCompanies] as List<dynamic>?)
+              ?.map(
+                  (e) => ProductionCompany.fromJson(e as Map<String, dynamic>))
+              .toList(),
+      productionCountries: json[ApiKey.productionCountries] == null
+          ? null
+          : (json[ApiKey.productionCountries] as List<dynamic>?)
+              ?.map(
+                  (e) => ProductionCountry.fromJson(e as Map<String, dynamic>))
+              .toList(),
+      releaseDate: json[ApiKey.releaseDate] as String?,
+      revenue: json[ApiKey.revenue] as int?,
+      runtime: json[ApiKey.runtime] as int?,
+      spokenLanguages: json[ApiKey.spokenLanguages] == null
+          ? null
+          : (json[ApiKey.spokenLanguages] as List<dynamic>?)
+              ?.map((e) => SpokenLanguage.fromJson(e as Map<String, dynamic>))
+              .toList(),
+      status: json[ApiKey.status] as String?,
+      tagline: json[ApiKey.tagline] as String?,
+      title: json[ApiKey.title] as String?,
+      video: json[ApiKey.video] as bool?,
+      voteAverage: (json[ApiKey.voteAverage] as num?)?.toDouble(),
+      voteCount: json[ApiKey.voteCount] as int?,
     );
   }
-
-  Map<String, dynamic> toJson() => {
-        'adult': adult,
-        'backdrop_path': backdropPath,
-        'belongs_to_collection': belongsToCollection?.toJson(),
-        'budget': budget,
-        'genres': genres?.map((e) => e.toJson()).toList(),
-        'homepage': homepage,
-        'id': id,
-        'imdb_id': imdbId,
-        'origin_country': originCountry,
-        'original_language': originalLanguage,
-        'original_title': originalTitle,
-        'overview': overview,
-        'popularity': popularity,
-        'poster_path': posterPath,
-        'production_companies':
-            productionCompanies?.map((e) => e.toJson()).toList(),
-        'production_countries':
-            productionCountries?.map((e) => e.toJson()).toList(),
-        'release_date': releaseDate,
-        'revenue': revenue,
-        'runtime': runtime,
-        'spoken_languages': spokenLanguages?.map((e) => e.toJson()).toList(),
-        'status': status,
-        'tagline': tagline,
-        'title': title,
-        'video': video,
-        'vote_average': voteAverage,
-        'vote_count': voteCount,
-      };
 }

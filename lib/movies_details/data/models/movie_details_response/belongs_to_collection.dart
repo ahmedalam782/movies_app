@@ -1,3 +1,5 @@
+import 'package:movies_app_route/shared/network/remote/end_point.dart';
+
 class BelongsToCollection {
   int? id;
   String? name;
@@ -13,17 +15,10 @@ class BelongsToCollection {
 
   factory BelongsToCollection.fromJson(Map<String, dynamic> json) {
     return BelongsToCollection(
-      id: json['id'] as int?,
-      name: json['name'] as String?,
-      posterPath: json['poster_path'] as String?,
-      backdropPath: json['backdrop_path'] as String?,
+      id: json[ApiKey.id] as int?,
+      name: json[ApiKey.name] as String?,
+      posterPath: json[ApiKey.posterPath] as String?,
+      backdropPath: json[ApiKey.backdropPath] as String?,
     );
   }
-
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': name,
-        'poster_path': posterPath,
-        'backdrop_path': backdropPath,
-      };
 }

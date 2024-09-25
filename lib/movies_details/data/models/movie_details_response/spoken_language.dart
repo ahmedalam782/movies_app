@@ -1,3 +1,5 @@
+import 'package:movies_app_route/shared/network/remote/end_point.dart';
+
 class SpokenLanguage {
   String? englishName;
   String? iso6391;
@@ -7,15 +9,9 @@ class SpokenLanguage {
 
   factory SpokenLanguage.fromJson(Map<String, dynamic> json) {
     return SpokenLanguage(
-      englishName: json['english_name'] as String?,
-      iso6391: json['iso_639_1'] as String?,
-      name: json['name'] as String?,
+      englishName: json[ApiKey.englishName] as String?,
+      iso6391: json[ApiKey.iso_639_1] as String?,
+      name: json[ApiKey.name] as String?,
     );
   }
-
-  Map<String, dynamic> toJson() => {
-        'english_name': englishName,
-        'iso_639_1': iso6391,
-        'name': name,
-      };
 }

@@ -1,29 +1,29 @@
-import 'package:movies_app_route/home_datails/data/models/top_rated_models/top_rated_movies.dart';
+import 'package:movies_app_route/movies_category_details/data/models/movies_items.dart';
 import 'package:movies_app_route/shared/network/remote/end_point.dart';
 
-import '../../../../shared/Exceptions/Error_Server_Model/error_server_model.dart';
+import '../../../shared/Exceptions/Error_Server_Model/error_server_model.dart';
 
-class MoviesTopRated {
+class MoviesCategory {
   int? page;
-  List<TopRatedMovies>? topRatedMovies;
+  List<MoviesItems>? moviesItems;
   int? totalPages;
   int? totalResults;
   ErrorServerModel? errorServerModel;
 
-  MoviesTopRated({
+  MoviesCategory({
     this.page,
-    this.topRatedMovies,
+    this.moviesItems,
     this.totalPages,
     this.totalResults,
     this.errorServerModel,
   });
 
-  factory MoviesTopRated.fromJson(Map<String, dynamic> json) => MoviesTopRated(
+  factory MoviesCategory.fromJson(Map<String, dynamic> json) => MoviesCategory(
         page: json[ApiKey.page] as int?,
-        topRatedMovies: json[ApiKey.results] == null
+        moviesItems: json[ApiKey.results] == null
             ? null
             : (json[ApiKey.results] as List<dynamic>?)
-                ?.map((e) => TopRatedMovies.fromJson(e as Map<String, dynamic>))
+                ?.map((e) => MoviesItems.fromJson(e as Map<String, dynamic>))
                 .toList(),
         totalPages: json[ApiKey.totalPages] as int?,
         totalResults: json[ApiKey.totalResults] as int?,

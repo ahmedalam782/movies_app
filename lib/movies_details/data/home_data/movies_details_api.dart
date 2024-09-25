@@ -5,6 +5,7 @@ import 'package:movies_app_route/movies_details/data/models/similar_response/sim
 import 'package:movies_app_route/shared/service_locator.dart';
 
 import '../../../shared/network/remote/end_point.dart';
+import '../models/similar_response/similarMovies.dart';
 
 class MoviesDetailsApi extends MoviesDataDetails {
   @override
@@ -16,7 +17,6 @@ class MoviesDetailsApi extends MoviesDataDetails {
     });
     MovieDetailsResponse moviesDetailsResponse =
         MovieDetailsResponse.fromJson(response);
-    print(moviesDetailsResponse.backdropPath);
     if (moviesDetailsResponse.genres != null) {
       return moviesDetailsResponse.genres!;
     } else if (moviesDetailsResponse.errorServerModel?.statusMessage != null ||
@@ -34,9 +34,7 @@ class MoviesDetailsApi extends MoviesDataDetails {
     final response = await ServiceLocator.apiConsumer.get(url, headers: {
       ApiKey.authorization: ApiKey.accessToken,
     });
-    print(url);
     SimilarResponse similarResponse = SimilarResponse.fromJson(response);
-    print(similarResponse.similarMovies!.length);
     if (similarResponse.similarMovies != null) {
       return similarResponse.similarMovies!;
     } else if (similarResponse.errorServerModel?.statusMessage != null ||
