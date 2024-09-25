@@ -34,7 +34,7 @@ class AppTheme {
       progressIndicatorTheme: const ProgressIndicatorThemeData(
         color: primary,
       ),
-      dividerTheme: DividerThemeData(
+      dividerTheme: const DividerThemeData(
         thickness: 1,
         color: gray,
       ),

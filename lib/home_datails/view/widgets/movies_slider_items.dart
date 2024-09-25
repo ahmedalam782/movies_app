@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:movies_app_route/home_datails/view/widgets/releases_movies.dart';
 import 'package:movies_app_route/movies_details/view/screens/movie_details_new.dart';
 import 'package:movies_app_route/shared/network/remote/end_point.dart';
 
@@ -7,7 +8,6 @@ import '../../../shared/components/loading_indicator.dart';
 import '../../../shared/components/movies_image_components.dart';
 import '../../../shared/themes/app_theme.dart';
 import '../../data/models/popular_models/popular_movies.dart';
-import '../../../movies_details/view/screens/movie_details.dart';
 
 class MoviesSliderItems extends StatelessWidget {
   const MoviesSliderItems({super.key, required this.popularMovies});
@@ -40,8 +40,10 @@ class MoviesSliderItems extends StatelessWidget {
                   imageUrl:
                       "${EndPoint.imageBaseUrl}${popularMovies.backdropPath}",
                   placeholder: (context, url) => const LoadingIndicator(),
-                  errorWidget: (_, __, ___) =>
-                      const Icon(Icons.image_not_supported),
+                  errorWidget: (_, __, ___) => const Icon(
+                    Icons.image_not_supported,
+                    color: AppTheme.white,
+                  ),
                   height: height * .29,
                   width: double.infinity,
                   fit: BoxFit.cover,
@@ -53,20 +55,12 @@ class MoviesSliderItems extends StatelessWidget {
                 size: 70,
               ),
               Positioned.directional(
-                bottom: -60,
-                start: 16,
-                textDirection: TextDirection.ltr,
-                child: InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(context, MovieDetailsNew.routeName);
-                  },
-                  child: MoviesImageComponents(
-                    image:
-                        "${EndPoint.imageBaseUrl}${popularMovies.posterPath}",
-                    backgroundBookmarkIcon: AppTheme.darkGray.withOpacity(.87),
-                  ),
-                ),
-              ),
+                  bottom: -60,
+                  start: 16,
+                  textDirection: TextDirection.ltr,
+                  child: ReleasesMovies(
+                    upcomingMovies: popularMovies,
+                  )),
             ],
           ),
           SizedBox(
@@ -77,7 +71,7 @@ class MoviesSliderItems extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  popularMovies.title ?? "",
+                  popularMovies.title ?? "" ,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(

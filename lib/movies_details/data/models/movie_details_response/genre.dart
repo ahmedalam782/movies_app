@@ -1,3 +1,5 @@
+import 'package:movies_app_route/shared/network/remote/end_point.dart';
+
 class Genre {
   int? id;
   String? name;
@@ -5,12 +7,7 @@ class Genre {
   Genre({this.id, this.name});
 
   factory Genre.fromJson(Map<String, dynamic> json) => Genre(
-        id: json['id'] as int?,
-        name: json['name'] as String?,
+        id: json[ApiKey.id] as int?,
+        name: json[ApiKey.name] as String?,
       );
-
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': name,
-      };
 }

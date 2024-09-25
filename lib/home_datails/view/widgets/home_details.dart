@@ -55,7 +55,7 @@ class _HomeDetailsState extends State<HomeDetails> {
                             },
                             itemCount: moviesViewModel.popularMovies.length,
                             options: CarouselOptions(
-                              height: height * .4,
+                              height: height * .42,
                               autoPlayCurve: Curves.fastEaseInToSlowEaseOut,
                               scrollDirection: Axis.horizontal,
                               clipBehavior: Clip.none,

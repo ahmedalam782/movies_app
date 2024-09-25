@@ -7,9 +7,11 @@ import '../../../shared/service_locator.dart';
 
 class MoviesCategoriesApiData extends MoviesCategoryDetailsData {
   @override
-  Future<List<MoviesItems>> getMoviesCategoryDetails(String categoryId) async {
+  Future<List<MoviesItems>> getMoviesCategoryDetails(
+      String categoryId, String page) async {
     final Uri url = Uri.http(EndPoint.baseUrl, EndPoint.moviesList, {
       "with_genres": categoryId,
+      'page': page,
     });
     final response = await ServiceLocator.apiConsumer.get(url, headers: {
       ApiKey.authorization: ApiKey.accessToken,

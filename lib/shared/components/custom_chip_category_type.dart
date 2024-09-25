@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app_route/shared/themes/app_theme.dart';
 
+import '../../movies_details/data/models/movie_details_response/genre.dart';
+
 class CustomChipBuilderWidget extends StatefulWidget {
-  const CustomChipBuilderWidget({super.key});
+  final List<Genre> movieDetails;
+
+  const CustomChipBuilderWidget({super.key, required this.movieDetails});
 
   @override
   State<CustomChipBuilderWidget> createState() =>
@@ -10,37 +14,26 @@ class CustomChipBuilderWidget extends StatefulWidget {
 }
 
 class _CustomChipBuilderWidgetState extends State<CustomChipBuilderWidget> {
-  List<String> chipData = [
-    'Fantasy',
-    'Action',
-    'Drama',
-    'Romance',
-  ];
-
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Wrap(
-        spacing: 10.0,
-        runSpacing: 1.0,
-        children: List.generate(
-          chipData.length,
-          (index) => GestureDetector(
-            onTap: () {},
-            child: Chip(
-              labelStyle: Theme.of(context)
-                  .textTheme
-                  .titleLarge
-                  ?.copyWith(fontSize: 10),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  side: const BorderSide(color: AppTheme.gray)),
-              label: Text(
-                chipData[index],
-              ),
-              backgroundColor: AppTheme.black,
+    return Wrap(
+      spacing: 10.0,
+      runSpacing: .5,
+      children: List.generate(
+        widget.movieDetails.length,
+        (index) => Chip(
+          labelStyle:
+              Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 10),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+            side:  BorderSide(
+              color: AppTheme.gray.withOpacity(.3),
             ),
           ),
+          label: Text(
+            widget.movieDetails[index].name ?? "",
+          ),
+          backgroundColor: AppTheme.black,
         ),
       ),
     );

@@ -3,7 +3,11 @@ class EndPoint {
   static const String popular = "/3/movie/popular";
   static const String upcoming = "/3/movie/upcoming";
   static const String topRated = "/3/movie/top_rated";
-  static const String imageBaseUrl = "https://image.tmdb.org/t/p/w500";
+  static const String categoriesList = "/3/genre/movie/list";
+  static const String moviesList = "/3/discover/movie";
+  static const String similar = "/similar";
+  static const String movieDetails = "/3/movie/";
+  static const String imageBaseUrl = "https://image.tmdb.org/t/p/w500/";
 }
 
 class ApiKey {
@@ -36,4 +40,22 @@ class ApiKey {
   static const String dates = 'dates';
   static const String maximum = 'maximum';
   static const String minimum = 'minimum';
+  static const String genres = 'genres';
+  static const String name = 'name';
+  static const String belongsToCollection = 'belongs_to_collection';
+  static const String budget = 'budget';
+  static const String homepage = 'homepage';
+  static const String imdbId = 'imdb_id';
+  static const String originCountry = 'origin_country';
+  static const String productionCompanies = 'production_companies';
+  static const String productionCountries = 'production_countries';
+  static const String revenue = 'revenue';
+  static const String runtime = 'runtime';
+  static const String spokenLanguages = 'spoken_languages';
+  static const String status = 'status';
+  static const String tagline = 'tagline';
+  static const String logoPath = 'logo_path';
+  static const String iso_3166_1 = 'iso_3166_1';
+  static const String englishName = 'english_name';
+  static const String iso_639_1 = 'iso_639_1';
 }

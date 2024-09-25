@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app_route/movies_category_details/data/models/movies_items.dart';
-import 'package:movies_app_route/movies_details/view/screens/movie_details.dart';
 import 'package:movies_app_route/shared/themes/app_theme.dart';
 
+import '../../../movies_details/view/screens/movie_details_new.dart';
 import '../../../shared/components/loading_indicator.dart';
 import '../../../shared/network/remote/end_point.dart';
 
@@ -18,7 +18,11 @@ class MoviesCategoryItem extends StatelessWidget {
     double width = MediaQuery.sizeOf(context).width;
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(MovieDetails.routeName);
+        Navigator.pushNamed(
+          context,
+          MovieDetailsNew.routeName,
+          arguments: moviesItems,
+        );
       },
       child: Padding(
         padding: EdgeInsetsDirectional.symmetric(
@@ -39,18 +43,20 @@ class MoviesCategoryItem extends StatelessWidget {
                       ),
                       child: CachedNetworkImage(
                         imageUrl:
-                            "${EndPoint.imageBaseUrl}${moviesItems.backdropPath}",
+                            "${EndPoint.imageBaseUrl}${moviesItems.backdropPath ?? moviesItems.posterPath}",
                         placeholder: (context, url) => const LoadingIndicator(),
-                        errorWidget: (_, __, ___) =>
-                            const Icon(Icons.image_not_supported),
+                        errorWidget: (_, __, ___) => const Icon(
+                          Icons.image_not_supported,
+                          color: AppTheme.white,
+                        ),
                         height: 100,
-                        width: 150,
+                        width: moviesItems.backdropPath == null ? 100 : 150,
                       ),
                     ),
                     Positioned.directional(
                       textDirection: TextDirection.ltr,
-                      top: -6.5,
-                      start: -18.5,
+                      top: moviesItems.backdropPath == null ? -14.5 : -6.5,
+                      start: moviesItems.backdropPath == null ? -4 : -18.5,
                       child: IconButton(
                         onPressed: () {},
                         icon: Stack(

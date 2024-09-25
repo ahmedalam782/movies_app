@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app_route/browse/view/widgets/Browse.dart';
 import 'package:movies_app_route/home_datails/view/widgets/home_details.dart';
-import 'package:movies_app_route/movies_details/view/screens/movie_details.dart';
 import 'package:movies_app_route/search/view/widgets/search.dart';
 import 'package:movies_app_route/watchlist/view/widgets/watchlist.dart';
 
@@ -18,10 +17,10 @@ class _HomeScreenState extends State<HomeScreen> {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   int currentIndex = 0;
   List<Widget> tabs = [
-    HomeDetails(),
-    Search(),
-    Browse(),
-    Watchlist(),
+    const HomeDetails(),
+    const Search(),
+    const Browse(),
+    const Watchlist(),
   ];
 
   @override

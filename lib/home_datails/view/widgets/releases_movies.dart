@@ -10,7 +10,7 @@ import '../../../shared/network/remote/end_point.dart';
 class ReleasesMovies extends StatelessWidget {
   const ReleasesMovies({super.key, required this.upcomingMovies});
 
-  final UpcomingMovies upcomingMovies;
+  final dynamic upcomingMovies;
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +36,10 @@ class ReleasesMovies extends StatelessWidget {
                   imageUrl:
                       "${EndPoint.imageBaseUrl}${upcomingMovies.posterPath}",
                   placeholder: (context, url) => const LoadingIndicator(),
-                  errorWidget: (_, __, ___) =>
-                      const Icon(Icons.image_not_supported),
+                  errorWidget: (_, __, ___) => const Icon(
+                    Icons.image_not_supported,
+                    color: AppTheme.white,
+                  ),
                   height: 150,
                   width: 100,
                 ),

@@ -9,12 +9,38 @@ class MoviesCategoryDetailsViewModel extends ChangeNotifier {
   List<MoviesItems> moviesItems = [];
   String? errorMessage;
   bool isLoading = false;
+  int page = 1;
+  bool hasMore = true;
+  bool isLoadingPagination = false;
 
-  Future<void> getMoviesCategoryDetails(String categoryId) async {
-    isLoading = true;
-    notifyListeners();
+  Future<void> getMoviesCategoryDetails(
+    String categoryId, {
+    bool isLoadingFromPagination = false,
+  }) async {
+    if (isLoadingFromPagination) {
+      isLoadingPagination = isLoadingFromPagination;
+      notifyListeners();
+    } else {
+      isLoading = true;
+      moviesItems = [];
+      page = 1;
+      errorMessage = null;
+      notifyListeners();
+    }
     try {
-      moviesItems = await moviesCategory.getMoviesCategoryDetails(categoryId);
+      if (await moviesCategory.getMoviesCategoryDetails(
+              categoryId, page.toString()) ==
+          []) {
+        hasMore = false;
+        page = 1;
+        isLoadingPagination = false;
+      } else {
+        moviesItems.addAll(await moviesCategory.getMoviesCategoryDetails(
+            categoryId, page.toString()));
+        isLoadingPagination = false;
+        hasMore = true;
+        page++;
+      }
     } catch (e) {
       errorMessage = e.toString();
     }

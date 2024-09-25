@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:movies_app_route/home/view/screen/home_screen.dart';
-import 'package:movies_app_route/movies_details/view/screens/movie_details.dart';
 import 'package:movies_app_route/shared/themes/app_theme.dart';
 
 import 'movies_category_details/view/screens/category_details.dart';
+import 'movies_details/view/screens/movie_details_new.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,8 +22,9 @@ class MovieApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        HomeScreen.routeName: (_) => HomeScreen(),
-        MovieDetails.routeName: (_) => MovieDetails(),
+        HomeScreen.routeName: (_) => const HomeScreen(),
+        // MovieDetails.routeName: (_) => MovieDetails(),
+        MovieDetailsNew.routeName: (_) => const MovieDetailsNew(),
         CategoryDetails.routeName: (_) => const CategoryDetails(),
       },
       theme: AppTheme.lightTheme,

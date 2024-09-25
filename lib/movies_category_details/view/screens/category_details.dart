@@ -49,20 +49,55 @@ class _CategoryDetailsState extends State<CategoryDetails> {
               message: moviesCategoryDetailsViewModel.errorMessage,
             );
           } else {
-            return ListView.separated(
-              itemCount: moviesCategoryDetailsViewModel.moviesItems.length,
-              separatorBuilder: (_, int index) => Padding(
-                padding:  EdgeInsets.symmetric(
-                  horizontal: width * .05,
-                ),
-                child: const Divider(),
-              ),
-              itemBuilder: (_, int index) {
-                return MoviesCategoryItem(
-                  moviesItems:
-                      moviesCategoryDetailsViewModel.moviesItems[index],
-                );
+            return NotificationListener<ScrollNotification>(
+              onNotification: (notification) {
+                if (notification.metrics.pixels ==
+                        notification.metrics.maxScrollExtent &&
+                    notification is ScrollUpdateNotification) {
+                  if (moviesCategoryDetailsViewModel.hasMore) {
+                    moviesCategoryDetailsViewModel.getMoviesCategoryDetails(
+                      category.id.toString(),
+                      isLoadingFromPagination: true,
+                    );
+
+                  }
+                }
+                return true;
               },
+              child: moviesCategoryDetailsViewModel.errorMessage == null
+                  ? ListView.separated(
+                      itemCount:
+                          moviesCategoryDetailsViewModel.moviesItems.length,
+                      separatorBuilder: (_, int index) => Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: width * .05,
+                        ),
+                        child: const Divider(),
+                      ),
+                      itemBuilder: (_, int index) {
+                        if (index <
+                            moviesCategoryDetailsViewModel.moviesItems.length) {
+                          return MoviesCategoryItem(
+                            moviesItems: moviesCategoryDetailsViewModel
+                                .moviesItems[index],
+                          );
+                        } else {
+                          return moviesCategoryDetailsViewModel
+                                  .isLoadingPagination
+                              ? Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical:
+                                          MediaQuery.sizeOf(context).height *
+                                              .05),
+                                  child: const LoadingIndicator(),
+                                )
+                              : const SizedBox();
+                        }
+                      },
+                    )
+                  : ErrorIndicator(
+                      message: moviesCategoryDetailsViewModel.errorMessage,
+                    ),
             );
           }
         }),
