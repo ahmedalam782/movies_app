@@ -1,4 +1,3 @@
-import 'package:movies_app_route/movies_details/data/home_data/movies_data.dart';
 import 'package:movies_app_route/movies_details/data/models/movie_details_response/genre.dart';
 import 'package:movies_app_route/movies_details/data/models/movie_details_response/movie_details_response.dart';
 import 'package:movies_app_route/movies_details/data/models/similar_response/similar_response.dart';
@@ -6,6 +5,7 @@ import 'package:movies_app_route/shared/service_locator.dart';
 
 import '../../../shared/network/remote/end_point.dart';
 import '../models/similar_response/similarMovies.dart';
+import 'movies_data.dart';
 
 class MoviesDetailsApi extends MoviesDataDetails {
   @override

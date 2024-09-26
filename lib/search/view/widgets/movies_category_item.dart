@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:movies_app_route/movies_category_details/data/models/movies_items.dart';
 import 'package:movies_app_route/search/data/models/search_result.dart';
 import 'package:movies_app_route/shared/themes/app_theme.dart';
 

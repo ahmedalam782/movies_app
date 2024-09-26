@@ -17,26 +17,25 @@ class MoviesCategoryDetailsViewModel extends ChangeNotifier {
     String categoryId, {
     bool isLoadingFromPagination = false,
   }) async {
-    if (isLoadingFromPagination) {
-      isLoadingPagination = isLoadingFromPagination;
-      notifyListeners();
-    } else {
+    if (isLoadingFromPagination == false) {
       isLoading = true;
       moviesItems = [];
       page = 1;
       errorMessage = null;
       notifyListeners();
+    } else {
+      isLoadingPagination = true;
+      notifyListeners();
     }
     try {
-      if (await moviesCategory.getMoviesCategoryDetails(
-              categoryId, page.toString()) ==
+      if (await moviesCategory.getMoviesCategoryDetails(categoryId, page) ==
           []) {
         hasMore = false;
         page = 1;
         isLoadingPagination = false;
       } else {
-        moviesItems.addAll(await moviesCategory.getMoviesCategoryDetails(
-            categoryId, page.toString()));
+        moviesItems.addAll(
+            await moviesCategory.getMoviesCategoryDetails(categoryId, page));
         isLoadingPagination = false;
         hasMore = true;
         page++;

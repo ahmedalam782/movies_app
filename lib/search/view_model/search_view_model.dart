@@ -8,12 +8,35 @@ class SearchViewModel extends ChangeNotifier {
   List<SearchResult> searchResult = [];
   String? errorMessage;
   bool isLoading = false;
+  int page = 1;
+  bool hasMore = true;
+  bool isLoadingPagination = false;
 
-  Future<void> getSearchMovies(String query) async {
-    isLoading = true;
-    notifyListeners();
+  Future<void> getSearchMovies(
+    String query, {
+    isLoadingFromPagination = false,
+  }) async {
+    if (isLoadingFromPagination == false) {
+      isLoading = true;
+      searchResult = [];
+      page = 1;
+      errorMessage = null;
+      notifyListeners();
+    } else {
+      isLoadingPagination = true;
+      notifyListeners();
+    }
     try {
-      searchResult = await searchData.getSeachMovies(query);
+      if (await searchData.getSearchMovies(query, page) == []) {
+        hasMore = false;
+        page = 1;
+        isLoadingPagination = false;
+      } else {
+        searchResult.addAll(await searchData.getSearchMovies(query, page));
+        isLoadingPagination = false;
+        hasMore = true;
+        page++;
+      }
     } catch (e) {
       errorMessage = e.toString();
     }

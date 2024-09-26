@@ -7,7 +7,8 @@ class EndPoint {
   static const String moviesList = "/3/discover/movie";
   static const String similar = "/similar";
   static const String movieDetails = "/3/movie/";
-  static const String imageBaseUrl = "https://image.tmdb.org/t/p/w500/";
+  static const String searchMovies = "/3/search/movie";
+  static const String imageBaseUrl = "https://image.tmdb.org/t/p/w500";
 }
 
 class ApiKey {

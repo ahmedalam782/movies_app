@@ -16,10 +16,13 @@ class Search extends StatefulWidget {
 
 class _SearchState extends State<Search> {
   TextEditingController controller = TextEditingController();
-  String searchQury = '';
-  FocusNode focusNode = FocusNode();
-  bool isFocused = false;
   SearchViewModel searchModel = SearchViewModel();
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,39 +35,45 @@ class _SearchState extends State<Search> {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 15),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.sizeOf(context).width * .07,
+                      vertical: MediaQuery.sizeOf(context).height * .04,
+                    ),
                     child: TextField(
                       style: const TextStyle(color: AppTheme.white),
-                      cursorColor: Colors.green,
+                      cursorColor: AppTheme.green,
                       controller: controller,
                       decoration: InputDecoration(
-                        fillColor: AppTheme.darkGray,
+                        fillColor: AppTheme.gray.withOpacity(.3),
                         filled: true,
                         hintText: 'Search',
-                        hintStyle: Theme.of(context)
-                            .textTheme
-                            .titleMedium
-                            ?.copyWith(color: AppTheme.gray),
-                        prefixIcon: Icon(
-                          Icons.search,
-                          color: isFocused ? AppTheme.white : AppTheme.gray,
+                        hintStyle:
+                            Theme.of(context).textTheme.headlineLarge?.copyWith(
+                                  color: AppTheme.white.withOpacity(.46),
+                                  fontSize: 14,
+                                ),
+                        prefixIcon: const Padding(
+                          padding: EdgeInsets.all(16.0),
+                          child: Icon(
+                            Icons.search_sharp,
+                            size: 30,
+                            color: AppTheme.white,
+                          ),
                         ),
                         border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: AppTheme.gray,
-                            ),
-                            borderRadius: BorderRadius.circular(30)),
+                          borderSide:
+                              const BorderSide(color: AppTheme.white, width: 1),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
                         enabledBorder: OutlineInputBorder(
                             borderSide: const BorderSide(
-                              color: AppTheme.white,
-                            ),
+                                color: AppTheme.white, width: 1),
                             borderRadius: BorderRadius.circular(30)),
                         focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: AppTheme.white,
-                            ),
-                            borderRadius: BorderRadius.circular(30)),
+                          borderSide:
+                              const BorderSide(color: AppTheme.white, width: 1),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
                       ),
                       onChanged: (query) {
                         searchModel.getSearchMovies(controller.text);
@@ -72,8 +81,9 @@ class _SearchState extends State<Search> {
                     ),
                   ),
                   searchModel.searchResult.isEmpty || controller.text.isEmpty
-                      ? Center(
+                      ? Expanded(
                           child: Column(
+                            mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Image.asset(
@@ -101,25 +111,74 @@ class _SearchState extends State<Search> {
                                   message: searchModel.errorMessage,
                                 )
                               : Expanded(
-                                  child: ListView.separated(
-                                      itemCount:
-                                          searchModel.searchResult.length,
-                                      separatorBuilder: (_, int index) =>
-                                          Padding(
-                                            padding: EdgeInsets.symmetric(
-                                              horizontal:
-                                                  MediaQuery.sizeOf(context)
-                                                          .width *
-                                                      .05,
+                                  child:
+                                      NotificationListener<ScrollNotification>(
+                                    onNotification: (notification) {
+                                      if (notification.metrics.pixels ==
+                                              notification
+                                                  .metrics.maxScrollExtent &&
+                                          notification
+                                              is ScrollUpdateNotification) {
+                                        if (searchModel.hasMore) {
+                                          searchModel.getSearchMovies(
+                                            controller.text,
+                                            isLoadingFromPagination: true,
+                                          );
+                                        }
+                                      }
+                                      return true;
+                                    },
+                                    child: searchModel.errorMessage == null
+                                        ? ListView.separated(
+                                            itemCount: searchModel
+                                                    .searchResult.length +
+                                                1,
+                                            separatorBuilder: (_, int index) =>
+                                                Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                horizontal:
+                                                    MediaQuery.sizeOf(context)
+                                                            .width *
+                                                        .05,
+                                              ),
+                                              child: const Divider(),
                                             ),
-                                            child: const Divider(),
+                                            itemBuilder: (_, int index) {
+                                              if (index <
+                                                  searchModel
+                                                      .searchResult.length) {
+                                                return MoviesCategoryItem(
+                                                  searchResult: searchModel
+                                                      .searchResult[index],
+                                                );
+                                              } else {
+                                                return searchModel
+                                                        .isLoadingPagination
+                                                    ? Padding(
+                                                        padding: EdgeInsets.symmetric(
+                                                            vertical: MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .height *
+                                                                .05),
+                                                        child:
+                                                            const LoadingIndicator(),
+                                                      )
+                                                    : searchModel
+                                                                .errorMessage ==
+                                                            null
+                                                        ? const SizedBox()
+                                                        : ErrorIndicator(
+                                                            message: searchModel
+                                                                .errorMessage,
+                                                          );
+                                              }
+                                            },
+                                          )
+                                        : ErrorIndicator(
+                                            message: searchModel.errorMessage,
                                           ),
-                                      itemBuilder: (_, int index) {
-                                        return MoviesCategoryItem(
-                                          searchResult:
-                                              searchModel.searchResult[index],
-                                        );
-                                      }),
+                                  ),
                                 ),
                 ],
               ),

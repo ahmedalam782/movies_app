@@ -31,19 +31,27 @@ class _MovieDetailsNewState extends State<MovieDetailsNew> {
 
   @override
   Widget build(BuildContext context) {
-    args = ModalRoute.of(context)?.settings.arguments;
+    args = ModalRoute
+        .of(context)
+        ?.settings
+        .arguments;
     if (isLoaded == false) {
       moviesDetailsModel.getMovieDetails(args.id);
       moviesDetailsModel.getSimilarMovies(args.id);
       isLoaded = true;
       setState(() {});
     }
-    double height = MediaQuery.sizeOf(context).height;
-    double width = MediaQuery.sizeOf(context).width;
+    double height = MediaQuery
+        .sizeOf(context)
+        .height;
+    double width = MediaQuery
+        .sizeOf(context)
+        .width;
     return ChangeNotifierProvider(
       create: (_) => moviesDetailsModel,
       child: Consumer<MovieDetailsViewModel>(
-          builder: (_, moviesDetailsModel, __) => Scaffold(
+          builder: (_, moviesDetailsModel, __) =>
+              Scaffold(
                 appBar: AppBar(
                   title: Text(args.title ?? ""),
                 ),
@@ -61,10 +69,11 @@ class _MovieDetailsNewState extends State<MovieDetailsNew> {
                               ),
                               child: CachedNetworkImage(
                                 imageUrl:
-                                    "${EndPoint.imageBaseUrl}${args.backdropPath}",
+                                "${EndPoint.imageBaseUrl}${args.backdropPath}",
                                 placeholder: (context, url) =>
-                                    const LoadingIndicator(),
-                                errorWidget: (_, __, ___) => const Icon(
+                                const LoadingIndicator(),
+                                errorWidget: (_, __, ___) =>
+                                const Icon(
                                   Icons.image_not_supported,
                                   color: AppTheme.primary,
                                 ),
@@ -95,7 +104,8 @@ class _MovieDetailsNewState extends State<MovieDetailsNew> {
                           children: [
                             Text(
                               args.title,
-                              style: Theme.of(context)
+                              style: Theme
+                                  .of(context)
                                   .textTheme
                                   .titleLarge
                                   ?.copyWith(fontSize: 18),
@@ -105,11 +115,12 @@ class _MovieDetailsNewState extends State<MovieDetailsNew> {
                             ),
                             Text(
                               args.releaseDate,
-                              style: Theme.of(context)
+                              style: Theme
+                                  .of(context)
                                   .textTheme
                                   .titleMedium
                                   ?.copyWith(
-                                      color: AppTheme.gray, fontSize: 10),
+                                  color: AppTheme.gray, fontSize: 10),
                             ),
                             SizedBox(
                               height: height * 0.02,
@@ -127,22 +138,22 @@ class _MovieDetailsNewState extends State<MovieDetailsNew> {
                                 Flexible(
                                   child: Column(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       moviesDetailsModel.detailsIsLoading
                                           ? const LoadingIndicator()
                                           : moviesDetailsModel
-                                                      .errorDetailsMessage !=
-                                                  null
-                                              ? ErrorIndicator(
-                                                  message: moviesDetailsModel
-                                                      .errorDetailsMessage,
-                                                )
-                                              : CustomChipBuilderWidget(
-                                                  movieDetails:
-                                                      moviesDetailsModel
-                                                          .genres),
+                                          .errorDetailsMessage !=
+                                          null
+                                          ? ErrorIndicator(
+                                        message: moviesDetailsModel
+                                            .errorDetailsMessage,
+                                      )
+                                          : CustomChipBuilderWidget(
+                                          movieDetails:
+                                          moviesDetailsModel
+                                              .genres),
                                       SizedBox(
                                         height: height * 0.01,
                                       ),
@@ -174,9 +185,9 @@ class _MovieDetailsNewState extends State<MovieDetailsNew> {
                                       ),
                                       Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.start,
+                                        MainAxisAlignment.start,
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                         children: [
                                           const Icon(
                                             Icons.star,
@@ -204,27 +215,32 @@ class _MovieDetailsNewState extends State<MovieDetailsNew> {
                       moviesDetailsModel.similarIsLoading
                           ? const LoadingIndicator()
                           : moviesDetailsModel.errorSimilarMessage != null
-                              ? ErrorIndicator(
-                                  message:
-                                      moviesDetailsModel.errorSimilarMessage,
-                                )
-                              : MoviesContainer(
-                                  categoryName: 'More Like This',
-                                  height: 310,
-                                  child: ListView.separated(
-                                    scrollDirection: Axis.horizontal,
-                                    separatorBuilder: (_, index) =>
-                                        const SizedBox(
-                                      width: 10,
-                                    ),
-                                    itemBuilder: (_, index) => MoreLikeThis(
-                                      similarResponse: moviesDetailsModel
-                                          .similarMovies[index],
-                                    ),
-                                    itemCount:
-                                        moviesDetailsModel.similarMovies.length,
-                                  ),
-                                ),
+                          ? ErrorIndicator(
+                        message:
+                        moviesDetailsModel.errorSimilarMessage,
+                      )
+                          : moviesDetailsModel.similarMovies.isNotEmpty
+                          ? MoviesContainer(
+                        categoryName: 'More Like This',
+                        height: 310,
+                        child: ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          separatorBuilder: (_, index) =>
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          itemBuilder: (_, index) =>
+                              MoreLikeThis(
+                                similarResponse: moviesDetailsModel
+                                    .similarMovies[index],
+                              ),
+                          itemCount:
+                          moviesDetailsModel.similarMovies.length,
+                        ),
+                      ):const ErrorIndicator(
+                        message:
+                        "Failed to get Similar Movies",
+                      ),
                     ],
                   ),
                 ),
