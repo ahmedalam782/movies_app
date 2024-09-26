@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app_route/movies_details/data/home_data/movies_data.dart';
-import 'package:movies_app_route/movies_details/data/home_data/movies_details_api.dart';
+import 'package:movies_app_route/movies_details/data/movies_details_data/movies_details_api.dart';
 import 'package:movies_app_route/movies_details/data/models/movie_details_response/genre.dart';
 
 import '../data/models/similar_response/similarMovies.dart';
+import '../data/movies_details_data/movies_data.dart';
 
 class MovieDetailsViewModel extends ChangeNotifier {
   MoviesDataDetails moviesDataDetails = MoviesDetailsApi();

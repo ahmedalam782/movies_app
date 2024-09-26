@@ -59,7 +59,6 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                       category.id.toString(),
                       isLoadingFromPagination: true,
                     );
-
                   }
                 }
                 return true;
@@ -67,7 +66,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
               child: moviesCategoryDetailsViewModel.errorMessage == null
                   ? ListView.separated(
                       itemCount:
-                          moviesCategoryDetailsViewModel.moviesItems.length,
+                          moviesCategoryDetailsViewModel.moviesItems.length + 1,
                       separatorBuilder: (_, int index) => Padding(
                         padding: EdgeInsets.symmetric(
                           horizontal: width * .05,
@@ -91,7 +90,13 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                                               .05),
                                   child: const LoadingIndicator(),
                                 )
-                              : const SizedBox();
+                              : moviesCategoryDetailsViewModel.errorMessage ==
+                                      null
+                                  ? const SizedBox()
+                                  : ErrorIndicator(
+                                      message: moviesCategoryDetailsViewModel
+                                          .errorMessage,
+                                    );
                         }
                       },
                     )
