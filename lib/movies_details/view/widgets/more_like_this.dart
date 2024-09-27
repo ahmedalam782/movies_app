@@ -8,7 +8,6 @@ import '../../../shared/components/loading_indicator.dart';
 import '../../../shared/network/remote/api/end_point.dart';
 import '../../../watchlist/data/models/movies_watchlist.dart';
 import '../../data/models/similar_response/similarMovies.dart';
-import '../../view_model/movies_view_model.dart';
 
 class MoreLikeThis extends StatefulWidget {
   const MoreLikeThis({super.key, required this.similarResponse});
@@ -95,16 +94,16 @@ class _MoreLikeThisState extends State<MoreLikeThis> {
                             : AppTheme.darkGray.withOpacity(.87),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                           bottom: 8,
                         ),
                         child: widget.similarResponse.isWatchList
-                            ? Icon(
+                            ? const Icon(
                           Icons.check,
                           color: AppTheme.white,
                           size: 18,
                         )
-                            : Icon(
+                            : const Icon(
                           Icons.add,
                           color: AppTheme.white,
                           size: 18,

@@ -105,16 +105,16 @@ class _MoviesCategoryItemState extends State<MoviesCategoryItem> {
                                   : AppTheme.darkGray.withOpacity(.87),
                             ),
                             Padding(
-                              padding: EdgeInsets.only(
+                              padding: const EdgeInsets.only(
                                 bottom: 8,
                               ),
                               child: widget.moviesItems.isWatchList
-                                  ? Icon(
+                                  ? const Icon(
                                       Icons.check,
                                       color: AppTheme.white,
                                       size: 18,
                                     )
-                                  : Icon(
+                                  : const Icon(
                                       Icons.add,
                                       color: AppTheme.white,
                                       size: 18,

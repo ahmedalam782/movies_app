@@ -88,16 +88,16 @@ class _ReleasesMoviesState extends State<ReleasesMovies> {
                             : AppTheme.darkGray.withOpacity(.87),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                           bottom: 8,
                         ),
                         child: widget.upcomingMovies.isWatchList
-                            ? Icon(
+                            ? const Icon(
                                 Icons.check,
                                 color: AppTheme.white,
                                 size: 18,
                               )
-                            : Icon(
+                            : const Icon(
                                 Icons.add,
                                 color: AppTheme.white,
                                 size: 18,

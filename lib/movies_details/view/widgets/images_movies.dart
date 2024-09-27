@@ -7,7 +7,6 @@ import '../../../shared/Themes/app_theme.dart';
 import '../../../shared/components/loading_indicator.dart';
 import '../../../shared/network/remote/api/end_point.dart';
 import '../../../watchlist/data/models/movies_watchlist.dart';
-import '../../view_model/movies_view_model.dart';
 
 class ImagesMovies extends StatefulWidget {
   const ImagesMovies({super.key, required this.movies});
@@ -85,16 +84,16 @@ class _ImagesMoviesState extends State<ImagesMovies> {
                           : AppTheme.darkGray.withOpacity(.87),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(
+                      padding: const EdgeInsets.only(
                         bottom: 8,
                       ),
                       child: widget.movies.isWatchList
-                          ? Icon(
+                          ? const Icon(
                         Icons.check,
                         color: AppTheme.white,
                         size: 18,
                       )
-                          : Icon(
+                          : const Icon(
                         Icons.add,
                         color: AppTheme.white,
                         size: 18,

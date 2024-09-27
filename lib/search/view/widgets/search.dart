@@ -7,7 +7,6 @@ import 'package:movies_app_route/shared/components/loading_indicator.dart';
 import 'package:movies_app_route/shared/themes/app_theme.dart';
 import 'package:provider/provider.dart';
 
-import '../../../home_datails/view_model/movies_view_model.dart';
 
 class Search extends StatefulWidget {
   const Search({super.key});

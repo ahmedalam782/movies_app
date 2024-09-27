@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:movies_app_route/movies_details/data/movies_details_data/movies_details_api.dart';
 import 'package:movies_app_route/movies_details/data/models/movie_details_response/genre.dart';
 
-import '../../shared/Themes/app_theme.dart';
 import '../../shared/service_locator.dart';
 import '../../watchlist/data/models/movies_watchlist.dart';
 import '../data/models/similar_response/similarMovies.dart';
