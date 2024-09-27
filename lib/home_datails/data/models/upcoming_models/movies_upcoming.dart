@@ -1,7 +1,7 @@
 import 'package:movies_app_route/home_datails/data/models/upcoming_models/upcoming_movies.dart';
 
 import '../../../../shared/Exceptions/Error_Server_Model/error_server_model.dart';
-import '../../../../shared/network/remote/end_point.dart';
+import '../../../../shared/network/remote/api/end_point.dart';
 import 'dates_movies.dart';
 
 class MoviesUpcoming {

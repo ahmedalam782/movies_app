@@ -2,9 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app_route/home_datails/view/widgets/releases_movies.dart';
 import 'package:movies_app_route/movies_details/view/screens/movie_details_new.dart';
-import 'package:movies_app_route/shared/network/remote/end_point.dart';
 
 import '../../../shared/components/loading_indicator.dart';
+import '../../../shared/network/remote/api/end_point.dart';
 import '../../../shared/themes/app_theme.dart';
 import '../../data/models/popular_models/popular_movies.dart';
 
@@ -70,7 +70,7 @@ class MoviesSliderItems extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  popularMovies.title ?? "" ,
+                  popularMovies.title ?? "",
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(

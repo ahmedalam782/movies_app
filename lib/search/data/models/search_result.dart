@@ -1,4 +1,4 @@
-import 'package:movies_app_route/shared/network/remote/end_point.dart';
+import 'package:movies_app_route/shared/network/remote/api/end_point.dart';
 
 class SearchResult {
   bool? adult;
@@ -15,22 +15,25 @@ class SearchResult {
   bool? video;
   double? voteAverage;
   int? voteCount;
+  bool isWatchList;
 
-  SearchResult(
-      {this.adult,
-      this.backdropPath,
-      this.genreIds,
-      this.id,
-      this.originalLanguage,
-      this.originalTitle,
-      this.overview,
-      this.popularity,
-      this.posterPath,
-      this.releaseDate,
-      this.title,
-      this.video,
-      this.voteAverage,
-      this.voteCount});
+  SearchResult({
+    this.adult,
+    this.backdropPath,
+    this.genreIds,
+    this.id,
+    this.originalLanguage,
+    this.originalTitle,
+    this.overview,
+    this.popularity,
+    this.posterPath,
+    this.releaseDate,
+    this.title,
+    this.video,
+    this.voteAverage,
+    this.voteCount,
+    this.isWatchList = false,
+  });
 
   factory SearchResult.fromJson(Map<String, dynamic> json) => SearchResult(
         adult: json[ApiKey.adult] as bool?,

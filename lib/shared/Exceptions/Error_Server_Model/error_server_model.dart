@@ -1,4 +1,4 @@
-import '../../network/remote/end_point.dart';
+import '../../network/remote/api/end_point.dart';
 
 class ErrorServerModel {
   final bool? success;

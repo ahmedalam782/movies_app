@@ -4,7 +4,7 @@ import 'package:movies_app_route/search/data/search_data/search_data.dart';
 
 import 'package:movies_app_route/shared/service_locator.dart';
 
-import '../../../shared/network/remote/end_point.dart';
+import '../../../shared/network/remote/api/end_point.dart';
 
 class MoviesSearchApi extends SearchData {
   @override

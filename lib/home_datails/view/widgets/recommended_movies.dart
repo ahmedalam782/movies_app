@@ -1,19 +1,28 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app_route/home_datails/data/models/top_rated_models/top_rated_movies.dart';
+import 'package:provider/provider.dart';
 
 import '../../../movies_details/view/screens/movie_details_new.dart';
 import '../../../shared/Themes/app_theme.dart';
 import '../../../shared/components/loading_indicator.dart';
-import '../../../shared/network/remote/end_point.dart';
+import '../../../shared/network/remote/api/end_point.dart';
+import '../../../watchlist/data/models/movies_watchlist.dart';
+import '../../view_model/movies_view_model.dart';
 
-class RecommendedMovies extends StatelessWidget {
+class RecommendedMovies extends StatefulWidget {
   const RecommendedMovies({super.key, required this.topRatedMovies});
 
   final TopRatedMovies topRatedMovies;
 
   @override
+  State<RecommendedMovies> createState() => _RecommendedMoviesState();
+}
+
+class _RecommendedMoviesState extends State<RecommendedMovies> {
+  @override
   Widget build(BuildContext context) {
+    MoviesViewModel moviesViewModel = Provider.of<MoviesViewModel>(context);
     double height = MediaQuery.sizeOf(context).height;
     double width = MediaQuery.sizeOf(context).width;
     return GestureDetector(
@@ -21,7 +30,7 @@ class RecommendedMovies extends StatelessWidget {
         Navigator.pushNamed(
           context,
           MovieDetailsNew.routeName,
-          arguments: topRatedMovies,
+          arguments: widget.topRatedMovies,
         );
       },
       child: Column(
@@ -36,7 +45,7 @@ class RecommendedMovies extends StatelessWidget {
                 ),
                 child: CachedNetworkImage(
                   imageUrl:
-                      "${EndPoint.imageBaseUrl}${topRatedMovies.posterPath}",
+                      "${EndPoint.imageBaseUrl}${widget.topRatedMovies.posterPath}",
                   placeholder: (context, url) => const LoadingIndicator(),
                   errorWidget: (_, __, ___) => const Icon(
                     Icons.image_not_supported,
@@ -51,7 +60,25 @@ class RecommendedMovies extends StatelessWidget {
                 top: -14.5,
                 start: -18.5,
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    if (widget.topRatedMovies.isWatchList == false) {
+                      widget.topRatedMovies.isWatchList = true;
+                      setState(() {});
+                      moviesViewModel.addMovies(
+                        MoviesWatchlist(
+                          id: widget.topRatedMovies.id,
+                          title: widget.topRatedMovies.title,
+                          backdropPath: widget.topRatedMovies.backdropPath,
+                          posterPath: widget.topRatedMovies.posterPath,
+                          releaseDate: widget.topRatedMovies.releaseDate,
+                          voteAverage: widget.topRatedMovies.voteAverage,
+                          overview: widget.topRatedMovies.overview,
+                          isWatchList: widget.topRatedMovies.isWatchList,
+                        ),
+                        "Movie is Added successfully ",
+                      );
+                    }
+                  },
                   icon: Stack(
                     alignment: Alignment.center,
                     clipBehavior: Clip.none,
@@ -59,17 +86,25 @@ class RecommendedMovies extends StatelessWidget {
                       Icon(
                         Icons.bookmark,
                         size: 50,
-                        color: AppTheme.darkGray.withOpacity(.87),
+                        color: widget.topRatedMovies.isWatchList
+                            ? AppTheme.primary
+                            : AppTheme.darkGray.withOpacity(.87),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.only(
+                      Padding(
+                        padding: const EdgeInsets.only(
                           bottom: 8,
                         ),
-                        child: Icon(
-                          Icons.add,
-                          color: AppTheme.white,
-                          size: 18,
-                        ),
+                        child: widget.topRatedMovies.isWatchList
+                            ? const Icon(
+                                Icons.check,
+                                color: AppTheme.white,
+                                size: 18,
+                              )
+                            : const Icon(
+                                Icons.add,
+                                color: AppTheme.white,
+                                size: 18,
+                              ),
                       ),
                     ],
                   ),
@@ -105,7 +140,8 @@ class RecommendedMovies extends StatelessWidget {
                       width: 5,
                     ),
                     Text(
-                      topRatedMovies.voteAverage?.toStringAsFixed(2) ?? "",
+                      widget.topRatedMovies.voteAverage?.toStringAsFixed(2) ??
+                          "",
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                             fontSize: 10,
                           ),
@@ -116,7 +152,7 @@ class RecommendedMovies extends StatelessWidget {
                   height: 5,
                 ),
                 Text(
-                  topRatedMovies.title ?? "",
+                  widget.topRatedMovies.title ?? "",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -127,7 +163,7 @@ class RecommendedMovies extends StatelessWidget {
                   height: 5,
                 ),
                 Text(
-                  topRatedMovies.releaseDate ?? "",
+                  widget.topRatedMovies.releaseDate ?? "",
                   style: Theme.of(context)
                       .textTheme
                       .titleLarge

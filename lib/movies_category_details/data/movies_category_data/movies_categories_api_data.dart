@@ -2,7 +2,7 @@ import 'package:movies_app_route/movies_category_details/data/models/movies_cate
 import 'package:movies_app_route/movies_category_details/data/models/movies_items.dart';
 import 'package:movies_app_route/movies_category_details/data/movies_category_data/movies_category_details_data.dart';
 
-import '../../../shared/network/remote/end_point.dart';
+import '../../../shared/network/remote/api/end_point.dart';
 import '../../../shared/service_locator.dart';
 
 class MoviesCategoriesApiData extends MoviesCategoryDetailsData {

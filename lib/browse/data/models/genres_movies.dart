@@ -1,4 +1,5 @@
-import '../../../shared/network/remote/end_point.dart';
+
+import '../../../shared/network/remote/api/end_point.dart';
 
 class Genres {
   final int? id;

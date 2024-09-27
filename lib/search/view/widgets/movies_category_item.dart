@@ -2,18 +2,28 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app_route/search/data/models/search_result.dart';
 import 'package:movies_app_route/shared/themes/app_theme.dart';
+import 'package:provider/provider.dart';
 
+import '../../../home_datails/view_model/movies_view_model.dart';
 import '../../../movies_details/view/screens/movie_details_new.dart';
 import '../../../shared/components/loading_indicator.dart';
-import '../../../shared/network/remote/end_point.dart';
+import '../../../shared/network/remote/api/end_point.dart';
+import '../../../watchlist/data/models/movies_watchlist.dart';
 
-class MoviesCategoryItem extends StatelessWidget {
+class MoviesCategoryItem extends StatefulWidget {
   const MoviesCategoryItem({super.key, required this.searchResult});
 
   final SearchResult searchResult;
 
   @override
+  State<MoviesCategoryItem> createState() => _MoviesCategoryItemState();
+}
+
+class _MoviesCategoryItemState extends State<MoviesCategoryItem> {
+  @override
   Widget build(BuildContext context) {
+    MoviesViewModel movieDetailsViewModel =
+        Provider.of<MoviesViewModel>(context);
     double height = MediaQuery.sizeOf(context).height;
     double width = MediaQuery.sizeOf(context).width;
     return GestureDetector(
@@ -21,7 +31,7 @@ class MoviesCategoryItem extends StatelessWidget {
         Navigator.pushNamed(
           context,
           MovieDetailsNew.routeName,
-          arguments: searchResult,
+          arguments: widget.searchResult,
         );
       },
       child: Padding(
@@ -43,22 +53,48 @@ class MoviesCategoryItem extends StatelessWidget {
                       ),
                       child: CachedNetworkImage(
                         imageUrl:
-                            "${EndPoint.imageBaseUrl}${searchResult.backdropPath ?? searchResult.posterPath}",
+                            "${EndPoint.imageBaseUrl}${widget.searchResult.backdropPath ?? widget.searchResult.posterPath}",
                         placeholder: (context, url) => const LoadingIndicator(),
                         errorWidget: (_, __, ___) => const Icon(
                           Icons.image_not_supported,
                           color: AppTheme.white,
                         ),
                         height: 100,
-                        width: searchResult.backdropPath == null ? 100 : 150,
+                        width: widget.searchResult.backdropPath == null
+                            ? 100
+                            : 150,
                       ),
                     ),
                     Positioned.directional(
                       textDirection: TextDirection.ltr,
-                      top: searchResult.backdropPath == null ? -14.5 : -6.5,
-                      start: searchResult.backdropPath == null ? -4 : -18.5,
+                      top: widget.searchResult.backdropPath == null
+                          ? -14.5
+                          : -6.5,
+                      start:
+                          widget.searchResult.backdropPath == null ? -4 : -18.5,
                       child: IconButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          if (widget.searchResult.isWatchList == false) {
+                            widget.searchResult.isWatchList = true;
+                            setState(() {});
+                            movieDetailsViewModel.addMovies(
+                              MoviesWatchlist(
+                                id: widget.searchResult.id,
+                                title: widget.searchResult.title,
+                                backdropPath: widget.searchResult.backdropPath,
+                                posterPath: widget.searchResult.posterPath,
+                                releaseDate: widget.searchResult.releaseDate,
+                                voteAverage: widget.searchResult.voteAverage,
+                                overview: widget.searchResult.overview,
+                                isWatchList: widget.searchResult.isWatchList,
+                              ),
+                              "Movie is Added successfully ",
+                            );
+                            await movieDetailsViewModel.getPopularMovies();
+                            await movieDetailsViewModel.getUpcomingMovies();
+                            await movieDetailsViewModel.getTopRatedMovies();
+                          }
+                        },
                         icon: Stack(
                           alignment: Alignment.center,
                           clipBehavior: Clip.none,
@@ -66,17 +102,25 @@ class MoviesCategoryItem extends StatelessWidget {
                             Icon(
                               Icons.bookmark,
                               size: 50,
-                              color: AppTheme.darkGray.withOpacity(.87),
+                              color: widget.searchResult.isWatchList
+                                  ? AppTheme.primary
+                                  : AppTheme.darkGray.withOpacity(.87),
                             ),
-                            const Padding(
+                            Padding(
                               padding: EdgeInsets.only(
                                 bottom: 8,
                               ),
-                              child: Icon(
-                                Icons.add,
-                                color: AppTheme.white,
-                                size: 18,
-                              ),
+                              child: widget.searchResult.isWatchList
+                                  ? Icon(
+                                      Icons.check,
+                                      color: AppTheme.white,
+                                      size: 18,
+                                    )
+                                  : Icon(
+                                      Icons.add,
+                                      color: AppTheme.white,
+                                      size: 18,
+                                    ),
                             ),
                           ],
                         ),
@@ -93,7 +137,7 @@ class MoviesCategoryItem extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          searchResult.title ?? "",
+                          widget.searchResult.title ?? "",
                           style: Theme.of(context)
                               .textTheme
                               .titleLarge
@@ -105,7 +149,7 @@ class MoviesCategoryItem extends StatelessWidget {
                           height: height * .01,
                         ),
                         Text(
-                          searchResult.releaseDate ?? "",
+                          widget.searchResult.releaseDate ?? "",
                           style:
                               Theme.of(context).textTheme.titleLarge?.copyWith(
                                     fontSize: 13,
@@ -126,7 +170,8 @@ class MoviesCategoryItem extends StatelessWidget {
                               width: 5,
                             ),
                             Text(
-                              searchResult.voteAverage?.toStringAsFixed(1) ??
+                              widget.searchResult.voteAverage
+                                      ?.toStringAsFixed(1) ??
                                   "",
                               style: Theme.of(context)
                                   .textTheme

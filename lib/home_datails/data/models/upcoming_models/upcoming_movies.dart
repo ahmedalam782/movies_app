@@ -1,4 +1,4 @@
-import '../../../../shared/network/remote/end_point.dart';
+import '../../../../shared/network/remote/api/end_point.dart';
 
 class UpcomingMovies {
   bool? adult;
@@ -15,6 +15,7 @@ class UpcomingMovies {
   bool? video;
   double? voteAverage;
   int? voteCount;
+  bool isWatchList;
 
   UpcomingMovies({
     this.adult,
@@ -31,6 +32,7 @@ class UpcomingMovies {
     this.video,
     this.voteAverage,
     this.voteCount,
+    this.isWatchList = false,
   });
 
   factory UpcomingMovies.fromJson(Map<String, dynamic> json) => UpcomingMovies(

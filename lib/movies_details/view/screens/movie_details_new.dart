@@ -6,7 +6,7 @@ import 'package:movies_app_route/movies_details/view_model/movies_view_model.dar
 import 'package:movies_app_route/shared/components/error_indicator.dart';
 import 'package:movies_app_route/shared/components/loading_indicator.dart';
 import 'package:movies_app_route/shared/components/movies_container.dart';
-import 'package:movies_app_route/shared/network/remote/end_point.dart';
+import 'package:movies_app_route/shared/network/remote/api/end_point.dart';
 import 'package:movies_app_route/shared/themes/app_theme.dart';
 import 'package:provider/provider.dart';
 

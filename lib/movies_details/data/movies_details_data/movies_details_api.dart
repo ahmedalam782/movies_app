@@ -3,7 +3,7 @@ import 'package:movies_app_route/movies_details/data/models/movie_details_respon
 import 'package:movies_app_route/movies_details/data/models/similar_response/similar_response.dart';
 import 'package:movies_app_route/shared/service_locator.dart';
 
-import '../../../shared/network/remote/end_point.dart';
+import '../../../shared/network/remote/api/end_point.dart';
 import '../models/similar_response/similarMovies.dart';
 import 'movies_data.dart';
 

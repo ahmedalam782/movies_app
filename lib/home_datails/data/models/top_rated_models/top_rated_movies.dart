@@ -1,4 +1,4 @@
-import 'package:movies_app_route/shared/network/remote/end_point.dart';
+import 'package:movies_app_route/shared/network/remote/api/end_point.dart';
 
 class TopRatedMovies {
   bool? adult;
@@ -15,22 +15,25 @@ class TopRatedMovies {
   bool? video;
   double? voteAverage;
   int? voteCount;
+  bool isWatchList;
 
-  TopRatedMovies(
-      {this.adult,
-      this.backdropPath,
-      this.genreIds,
-      this.id,
-      this.originalLanguage,
-      this.originalTitle,
-      this.overview,
-      this.popularity,
-      this.posterPath,
-      this.releaseDate,
-      this.title,
-      this.video,
-      this.voteAverage,
-      this.voteCount});
+  TopRatedMovies({
+    this.adult,
+    this.backdropPath,
+    this.genreIds,
+    this.id,
+    this.originalLanguage,
+    this.originalTitle,
+    this.overview,
+    this.popularity,
+    this.posterPath,
+    this.releaseDate,
+    this.title,
+    this.video,
+    this.voteAverage,
+    this.voteCount,
+    this.isWatchList = false,
+  });
 
   factory TopRatedMovies.fromJson(Map<String, dynamic> json) => TopRatedMovies(
         adult: json[ApiKey.adult] as bool?,

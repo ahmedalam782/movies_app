@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:movies_app_route/movies_category_details/data/models/movies_items.dart';
 import 'package:movies_app_route/movies_category_details/data/movies_category_data/movies_categories_api_data.dart';
 
+import '../../shared/service_locator.dart';
+import '../../watchlist/data/models/movies_watchlist.dart';
 import '../data/movies_category_data/movies_category_details_data.dart';
 
 class MoviesCategoryDetailsViewModel extends ChangeNotifier {
@@ -12,6 +14,7 @@ class MoviesCategoryDetailsViewModel extends ChangeNotifier {
   int page = 1;
   bool hasMore = true;
   bool isLoadingPagination = false;
+  List<MoviesWatchlist> moviesWatchlist = [];
 
   Future<void> getMoviesCategoryDetails(
     String categoryId, {
@@ -36,6 +39,14 @@ class MoviesCategoryDetailsViewModel extends ChangeNotifier {
       } else {
         moviesItems.addAll(
             await moviesCategory.getMoviesCategoryDetails(categoryId, page));
+        await getMovies();
+        for (var moviesWatchlist in moviesWatchlist) {
+          for (var moviesItems in moviesItems) {
+            if (moviesWatchlist.id == moviesItems.id) {
+              moviesItems.isWatchList = moviesWatchlist.isWatchList;
+            }
+          }
+        }
         isLoadingPagination = false;
         hasMore = true;
         page++;
@@ -44,6 +55,12 @@ class MoviesCategoryDetailsViewModel extends ChangeNotifier {
       errorMessage = e.toString();
     }
     isLoading = false;
+    notifyListeners();
+  }
+
+  Future<void> getMovies() async {
+    moviesWatchlist =
+        await ServiceLocator.firebaseCloud.getMoviesFromFirebase();
     notifyListeners();
   }
 }
