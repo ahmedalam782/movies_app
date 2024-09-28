@@ -21,6 +21,7 @@ class MoviesViewModel extends ChangeNotifier {
   List<TopRatedMovies> topRatedMovies = [];
   String? errorTopRatedMessage;
   bool topRatedIsLoading = false;
+
   List<MoviesWatchlist> moviesWatchlist = [];
 
   Future<void> getPopularMovies() async {

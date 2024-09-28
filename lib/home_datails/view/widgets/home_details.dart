@@ -37,15 +37,17 @@ class _HomeDetailsState extends State<HomeDetails> {
           child: ListView(
             children: [
               moviesViewModel.popularIsLoading
-                  ? const LoadingIndicator()
+                  ? SizedBox(
+                      height: height * .42,
+                      child: const LoadingIndicator(),
+                    )
                   : moviesViewModel.errorPopularMessage != null
                       ? ErrorIndicator(
                           message: moviesViewModel.errorPopularMessage,
                         )
                       : CarouselSlider.builder(
                           itemBuilder: (_, index, __) {
-                            final movie =
-                                moviesViewModel.popularMovies[index];
+                            final movie = moviesViewModel.popularMovies[index];
                             return MoviesSliderItems(
                               popularMovies: movie,
                             );
@@ -66,7 +68,10 @@ class _HomeDetailsState extends State<HomeDetails> {
                           ),
                         ),
               moviesViewModel.upcomingIsLoading
-                  ? const LoadingIndicator()
+                  ? const SizedBox(
+                      height: 225,
+                      child: LoadingIndicator(),
+                    )
                   : moviesViewModel.errorUpcomingMessage != null
                       ? ErrorIndicator(
                           message: moviesViewModel.errorUpcomingMessage,
@@ -90,7 +95,10 @@ class _HomeDetailsState extends State<HomeDetails> {
                 height: height * .03,
               ),
               moviesViewModel.topRatedIsLoading
-                  ? const LoadingIndicator()
+                  ? const SizedBox(
+                      height: 310,
+                      child: LoadingIndicator(),
+                    )
                   : moviesViewModel.errorTopRatedMessage != null
                       ? ErrorIndicator(
                           message: moviesViewModel.errorTopRatedMessage,
