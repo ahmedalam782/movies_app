@@ -15,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
-  int currentIndex = 3;
+  int currentIndex = 1;
   List<Widget> tabs = [
     const HomeDetails(),
     const Search(),
