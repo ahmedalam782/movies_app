@@ -88,7 +88,6 @@ class _MoviesCategoryItemState extends State<MoviesCategoryItem> {
                                 overview: widget.searchResult.overview,
                                 isWatchList: widget.searchResult.isWatchList,
                               ),
-                              "Movie is Added successfully ",
                             );
                             await movieDetailsViewModel.getPopularMovies();
                             await movieDetailsViewModel.getUpcomingMovies();

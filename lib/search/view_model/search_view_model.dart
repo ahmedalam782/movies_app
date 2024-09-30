@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app_route/search/data/models/search_result.dart';
-import 'package:movies_app_route/search/data/search_data/movies_search_api.dart';
-import 'package:movies_app_route/search/data/search_data/search_data.dart';
+import 'package:movies_app_route/search/repository/search_repository.dart';
 
 import '../../shared/service_locator.dart';
 import '../../watchlist/data/models/movies_watchlist.dart';
 
 class SearchViewModel extends ChangeNotifier {
-  SearchData searchData = MoviesSearchApi();
+  final SearchRepository repository;
+
+  SearchViewModel()
+      : repository = SearchRepository(
+            ServiceLocator.searchData, ServiceLocator.moviesWatchlist);
   List<SearchResult> searchResult = [];
   String? errorMessage;
   bool isLoading = false;
@@ -31,12 +34,12 @@ class SearchViewModel extends ChangeNotifier {
       notifyListeners();
     }
     try {
-      if (await searchData.getSearchMovies(query, page) == []) {
+      if (await repository.getSearchMovies(query, page) == []) {
         hasMore = false;
         page = 1;
         isLoadingPagination = false;
       } else {
-        searchResult.addAll(await searchData.getSearchMovies(query, page));
+        searchResult.addAll(await repository.getSearchMovies(query, page));
         await getMovies();
         for (var moviesWatchlist in moviesWatchlist) {
           for (var searchResult in searchResult) {
@@ -57,8 +60,7 @@ class SearchViewModel extends ChangeNotifier {
   }
 
   Future<void> getMovies() async {
-    moviesWatchlist =
-        await ServiceLocator.firebaseCloud.getMoviesFromFirebase();
+    moviesWatchlist = await repository.getMovies();
     notifyListeners();
   }
 }

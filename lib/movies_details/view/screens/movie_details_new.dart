@@ -229,9 +229,7 @@ class _MovieDetailsNewState extends State<MovieDetailsNew> {
                                             .similarMovies.length,
                                       ),
                                     )
-                                  : const ErrorIndicator(
-                                      message: "Failed to get Similar Movies",
-                                    ),
+                                  : const SizedBox()
                     ],
                   ),
                 ),

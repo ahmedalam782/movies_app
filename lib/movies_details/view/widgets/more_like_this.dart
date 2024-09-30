@@ -75,7 +75,6 @@ class _MoreLikeThisState extends State<MoreLikeThis> {
                           overview: widget.similarResponse.overview,
                           isWatchList: widget.similarResponse.isWatchList,
                         ),
-                        "Movie is Added successfully ",
                       );
                       await movieDetailsViewModel.getPopularMovies();
                       await movieDetailsViewModel.getUpcomingMovies();

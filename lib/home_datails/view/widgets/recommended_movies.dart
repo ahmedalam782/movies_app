@@ -75,7 +75,6 @@ class _RecommendedMoviesState extends State<RecommendedMovies> {
                           overview: widget.topRatedMovies.overview,
                           isWatchList: widget.topRatedMovies.isWatchList,
                         ),
-                        "Movie is Added successfully ",
                       );
                     }
                   },

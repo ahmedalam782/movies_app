@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app_route/movies_details/data/movies_details_data/movies_details_api.dart';
 import 'package:movies_app_route/movies_details/data/models/movie_details_response/genre.dart';
+import 'package:movies_app_route/movies_details/repository/movies_details_repository.dart';
 
 import '../../shared/service_locator.dart';
 import '../../watchlist/data/models/movies_watchlist.dart';
 import '../data/models/similar_response/similarMovies.dart';
-import '../data/movies_details_data/movies_data.dart';
 
 class MovieDetailsViewModel extends ChangeNotifier {
-  MoviesDataDetails moviesDataDetails = MoviesDetailsApi();
+  final MoviesDetailsRepository repository;
+
+  MovieDetailsViewModel()
+      : repository = MoviesDetailsRepository(
+            ServiceLocator.moviesDataDetails, ServiceLocator.moviesWatchlist);
+
   String? errorDetailsMessage;
   bool detailsIsLoading = false;
   List<Genre> genres = [];
@@ -22,7 +26,7 @@ class MovieDetailsViewModel extends ChangeNotifier {
     detailsIsLoading = true;
     notifyListeners();
     try {
-      genres = await moviesDataDetails.getMovieDetails(movieId);
+      genres = await repository.getMovieDetails(movieId);
     } catch (e) {
       errorDetailsMessage = e.toString();
     }
@@ -34,7 +38,7 @@ class MovieDetailsViewModel extends ChangeNotifier {
     similarIsLoading = true;
     notifyListeners();
     try {
-      similarMovies = await moviesDataDetails.getSimilarMovies(movieId);
+      similarMovies = await repository.getSimilarMovies(movieId);
       await getMovies();
       for (var moviesWatchlist in moviesWatchlist) {
         for (var similarMovies in similarMovies) {
@@ -51,8 +55,7 @@ class MovieDetailsViewModel extends ChangeNotifier {
   }
 
   Future<void> getMovies() async {
-    moviesWatchlist =
-        await ServiceLocator.firebaseCloud.getMoviesFromFirebase();
+    moviesWatchlist = await repository.getMovies();
     notifyListeners();
   }
 }

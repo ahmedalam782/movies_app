@@ -21,7 +21,7 @@ class _ImagesMoviesState extends State<ImagesMovies> {
   @override
   Widget build(BuildContext context) {
     MoviesViewModel movieDetailsViewModel =
-    Provider.of<MoviesViewModel>(context);
+        Provider.of<MoviesViewModel>(context);
     return Column(
       children: [
         Stack(
@@ -35,8 +35,7 @@ class _ImagesMoviesState extends State<ImagesMovies> {
               child: CachedNetworkImage(
                 imageUrl: "${EndPoint.imageBaseUrl}${widget.movies.posterPath}",
                 placeholder: (context, url) => const LoadingIndicator(),
-                errorWidget: (_, __, ___) =>
-                const Icon(
+                errorWidget: (_, __, ___) => const Icon(
                   Icons.image_not_supported,
                   color: AppTheme.white,
                 ),
@@ -64,13 +63,11 @@ class _ImagesMoviesState extends State<ImagesMovies> {
                         overview: widget.movies.overview,
                         isWatchList: widget.movies.isWatchList,
                       ),
-                      "Movie is Added successfully ",
                     );
                     await movieDetailsViewModel.getPopularMovies();
                     await movieDetailsViewModel.getUpcomingMovies();
                     await movieDetailsViewModel.getTopRatedMovies();
                   }
-
                 },
                 icon: Stack(
                   alignment: Alignment.center,
@@ -89,15 +86,15 @@ class _ImagesMoviesState extends State<ImagesMovies> {
                       ),
                       child: widget.movies.isWatchList
                           ? const Icon(
-                        Icons.check,
-                        color: AppTheme.white,
-                        size: 18,
-                      )
+                              Icons.check,
+                              color: AppTheme.white,
+                              size: 18,
+                            )
                           : const Icon(
-                        Icons.add,
-                        color: AppTheme.white,
-                        size: 18,
-                      ),
+                              Icons.add,
+                              color: AppTheme.white,
+                              size: 18,
+                            ),
                     ),
                   ],
                 ),

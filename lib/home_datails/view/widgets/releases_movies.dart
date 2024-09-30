@@ -72,7 +72,6 @@ class _ReleasesMoviesState extends State<ReleasesMovies> {
                           overview: widget.upcomingMovies.overview,
                           isWatchList: widget.upcomingMovies.isWatchList,
                         ),
-                        "Movie is Added successfully ",
                       );
                     }
                   },
