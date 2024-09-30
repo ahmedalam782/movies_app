@@ -30,94 +30,98 @@ class _HomeDetailsState extends State<HomeDetails> {
 
   @override
   Widget build(BuildContext context) {
-
     double height = MediaQuery.sizeOf(context).height;
-    return ChangeNotifierProvider(
-      create: (_) => moviesViewModel,
-      child: Consumer<MoviesViewModel>(
-        builder: (_, moviesViewModel, __) {
-          return SafeArea(
-            child: ListView(
-              children: [
-                moviesViewModel.popularIsLoading
-                    ? const LoadingIndicator()
-                    : moviesViewModel.errorPopularMessage != null
-                        ? ErrorIndicator(
-                            message: moviesViewModel.errorPopularMessage,
-                          )
-                        : CarouselSlider.builder(
-                            itemBuilder: (_, index, __) {
-                              final movie =
-                                  moviesViewModel.popularMovies[index];
-                              return MoviesSliderItems(
-                                popularMovies: movie,
-                              );
-                            },
-                            itemCount: moviesViewModel.popularMovies.length,
-                            options: CarouselOptions(
-                              height: height * .42,
-                              autoPlayCurve: Curves.fastEaseInToSlowEaseOut,
-                              scrollDirection: Axis.horizontal,
-                              clipBehavior: Clip.none,
-                              viewportFraction: 1,
-                              enlargeCenterPage: true,
-                              autoPlay: true,
-                              enlargeFactor: .15,
-                              autoPlayInterval: const Duration(seconds: 5),
-                              autoPlayAnimationDuration:
-                                  const Duration(seconds: 3),
-                            ),
+    return Consumer<MoviesViewModel>(
+      builder: (_, moviesViewModel, __) {
+        return SafeArea(
+          child: ListView(
+            children: [
+              moviesViewModel.popularIsLoading
+                  ? SizedBox(
+                      height: height * .42,
+                      child: const LoadingIndicator(),
+                    )
+                  : moviesViewModel.errorPopularMessage != null
+                      ? ErrorIndicator(
+                          message: moviesViewModel.errorPopularMessage,
+                        )
+                      : CarouselSlider.builder(
+                          itemBuilder: (_, index, __) {
+                            final movie = moviesViewModel.popularMovies[index];
+                            return MoviesSliderItems(
+                              popularMovies: movie,
+                            );
+                          },
+                          itemCount: moviesViewModel.popularMovies.length,
+                          options: CarouselOptions(
+                            height: height * .42,
+                            autoPlayCurve: Curves.fastEaseInToSlowEaseOut,
+                            scrollDirection: Axis.horizontal,
+                            clipBehavior: Clip.none,
+                            viewportFraction: 1,
+                            enlargeCenterPage: true,
+                            autoPlay: true,
+                            enlargeFactor: .15,
+                            autoPlayInterval: const Duration(seconds: 5),
+                            autoPlayAnimationDuration:
+                                const Duration(seconds: 3),
                           ),
-                moviesViewModel.upcomingIsLoading
-                    ? const LoadingIndicator()
-                    : moviesViewModel.errorUpcomingMessage != null
-                        ? ErrorIndicator(
-                            message: moviesViewModel.errorUpcomingMessage,
-                          )
-                        : MoviesContainer(
-                            categoryName: 'Upcoming ',
-                            height: 225,
-                            child: ListView.separated(
-                              scrollDirection: Axis.horizontal,
-                              separatorBuilder: (_, index) => const SizedBox(
-                                width: 10,
-                              ),
-                              itemBuilder: (_, index) => ReleasesMovies(
-                                upcomingMovies:
-                                    moviesViewModel.upcomingMovies[index],
-                              ),
-                              itemCount: moviesViewModel.upcomingMovies.length,
+                        ),
+              moviesViewModel.upcomingIsLoading
+                  ? const SizedBox(
+                      height: 225,
+                      child: LoadingIndicator(),
+                    )
+                  : moviesViewModel.errorUpcomingMessage != null
+                      ? ErrorIndicator(
+                          message: moviesViewModel.errorUpcomingMessage,
+                        )
+                      : MoviesContainer(
+                          categoryName: 'Upcoming ',
+                          height: 225,
+                          child: ListView.separated(
+                            scrollDirection: Axis.horizontal,
+                            separatorBuilder: (_, index) => const SizedBox(
+                              width: 10,
                             ),
-                          ),
-                SizedBox(
-                  height: height * .03,
-                ),
-                moviesViewModel.topRatedIsLoading
-                    ? const LoadingIndicator()
-                    : moviesViewModel.errorTopRatedMessage != null
-                        ? ErrorIndicator(
-                            message: moviesViewModel.errorTopRatedMessage,
-                          )
-                        : MoviesContainer(
-                            categoryName: 'Top Rated',
-                            height: 310,
-                            child: ListView.separated(
-                              scrollDirection: Axis.horizontal,
-                              separatorBuilder: (_, index) => const SizedBox(
-                                width: 10,
-                              ),
-                              itemBuilder: (_, index) => RecommendedMovies(
-                                topRatedMovies:
-                                    moviesViewModel.topRatedMovies[index],
-                              ),
-                              itemCount: moviesViewModel.topRatedMovies.length,
+                            itemBuilder: (_, index) => ReleasesMovies(
+                              upcomingMovies:
+                                  moviesViewModel.upcomingMovies[index],
                             ),
+                            itemCount: moviesViewModel.upcomingMovies.length,
                           ),
-              ],
-            ),
-          );
-        },
-      ),
+                        ),
+              SizedBox(
+                height: height * .03,
+              ),
+              moviesViewModel.topRatedIsLoading
+                  ? const SizedBox(
+                      height: 310,
+                      child: LoadingIndicator(),
+                    )
+                  : moviesViewModel.errorTopRatedMessage != null
+                      ? ErrorIndicator(
+                          message: moviesViewModel.errorTopRatedMessage,
+                        )
+                      : MoviesContainer(
+                          categoryName: 'Top Rated',
+                          height: 310,
+                          child: ListView.separated(
+                            scrollDirection: Axis.horizontal,
+                            separatorBuilder: (_, index) => const SizedBox(
+                              width: 10,
+                            ),
+                            itemBuilder: (_, index) => RecommendedMovies(
+                              topRatedMovies:
+                                  moviesViewModel.topRatedMovies[index],
+                            ),
+                            itemCount: moviesViewModel.topRatedMovies.length,
+                          ),
+                        ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

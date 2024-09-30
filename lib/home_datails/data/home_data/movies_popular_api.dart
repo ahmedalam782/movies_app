@@ -7,7 +7,7 @@ import 'package:movies_app_route/home_datails/data/models/upcoming_models/movies
 import 'package:movies_app_route/home_datails/data/models/upcoming_models/upcoming_movies.dart';
 import 'package:movies_app_route/shared/service_locator.dart';
 
-import '../../../shared/network/remote/end_point.dart';
+import '../../../shared/network/remote/api/end_point.dart';
 
 class MoviesPopularApi extends MoviesData {
   @override

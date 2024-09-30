@@ -1,5 +1,5 @@
 import 'package:movies_app_route/shared/Exceptions/Error_Server_Model/error_server_model.dart';
-import 'package:movies_app_route/shared/network/remote/end_point.dart';
+import 'package:movies_app_route/shared/network/remote/api/end_point.dart';
 
 import 'belongs_to_collection.dart';
 import 'genre.dart';

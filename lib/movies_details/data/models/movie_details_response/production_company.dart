@@ -1,4 +1,4 @@
-import 'package:movies_app_route/shared/network/remote/end_point.dart';
+import 'package:movies_app_route/shared/network/remote/api/end_point.dart';
 
 class ProductionCompany {
   int? id;

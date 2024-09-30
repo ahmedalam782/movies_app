@@ -59,4 +59,7 @@ class ApiKey {
   static const String iso_3166_1 = 'iso_3166_1';
   static const String englishName = 'english_name';
   static const String iso_639_1 = 'iso_639_1';
+  static const String isWatchList = 'isWatchList';
+  static const String movieId = 'movieId';
+
 }

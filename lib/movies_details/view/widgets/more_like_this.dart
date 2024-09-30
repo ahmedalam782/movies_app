@@ -1,24 +1,37 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app_route/movies_details/view/screens/movie_details_new.dart';
+import 'package:provider/provider.dart';
+import '../../../home_datails/view_model/movies_view_model.dart';
 import '../../../shared/Themes/app_theme.dart';
 import '../../../shared/components/loading_indicator.dart';
-import '../../../shared/network/remote/end_point.dart';
+import '../../../shared/network/remote/api/end_point.dart';
+import '../../../watchlist/data/models/movies_watchlist.dart';
 import '../../data/models/similar_response/similarMovies.dart';
 
-class MoreLikeThis extends StatelessWidget {
+class MoreLikeThis extends StatefulWidget {
   const MoreLikeThis({super.key, required this.similarResponse});
 
   final SimilarMovies similarResponse;
 
   @override
+  State<MoreLikeThis> createState() => _MoreLikeThisState();
+}
+
+class _MoreLikeThisState extends State<MoreLikeThis> {
+  @override
   Widget build(BuildContext context) {
+    MoviesViewModel movieDetailsViewModel =
+    Provider.of<MoviesViewModel>(context);
     double height = MediaQuery.sizeOf(context).height;
     double width = MediaQuery.sizeOf(context).width;
     return GestureDetector(
       onTap: () {
-        Navigator.pushReplacementNamed(context, MovieDetailsNew.routeName,
-            arguments: similarResponse);
+        Navigator.pushReplacementNamed(
+          context,
+          MovieDetailsNew.routeName,
+          arguments: widget.similarResponse,
+        );
       },
       child: Column(
         children: [
@@ -32,7 +45,7 @@ class MoreLikeThis extends StatelessWidget {
                 ),
                 child: CachedNetworkImage(
                   imageUrl:
-                      "${EndPoint.imageBaseUrl}${similarResponse.posterPath}",
+                      "${EndPoint.imageBaseUrl}${widget.similarResponse.posterPath}",
                   placeholder: (context, url) => const LoadingIndicator(),
                   errorWidget: (_, __, ___) => const Icon(
                     Icons.image_not_supported,
@@ -47,7 +60,27 @@ class MoreLikeThis extends StatelessWidget {
                 top: -14.5,
                 start: -18.5,
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    if (widget.similarResponse.isWatchList == false) {
+                      widget.similarResponse.isWatchList = true;
+                      setState(() {});
+                      movieDetailsViewModel.addMovies(
+                        MoviesWatchlist(
+                          id: widget.similarResponse.id,
+                          title: widget.similarResponse.title,
+                          backdropPath: widget.similarResponse.backdropPath,
+                          posterPath: widget.similarResponse.posterPath,
+                          releaseDate: widget.similarResponse.releaseDate,
+                          voteAverage: widget.similarResponse.voteAverage,
+                          overview: widget.similarResponse.overview,
+                          isWatchList: widget.similarResponse.isWatchList,
+                        ),
+                      );
+                      await movieDetailsViewModel.getPopularMovies();
+                      await movieDetailsViewModel.getUpcomingMovies();
+                      await movieDetailsViewModel.getTopRatedMovies();
+                    }
+                  },
                   icon: Stack(
                     alignment: Alignment.center,
                     clipBehavior: Clip.none,
@@ -55,13 +88,21 @@ class MoreLikeThis extends StatelessWidget {
                       Icon(
                         Icons.bookmark,
                         size: 50,
-                        color: AppTheme.darkGray.withOpacity(.87),
+                        color: widget.similarResponse.isWatchList
+                            ? AppTheme.primary
+                            : AppTheme.darkGray.withOpacity(.87),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.only(
+                      Padding(
+                        padding: const EdgeInsets.only(
                           bottom: 8,
                         ),
-                        child: Icon(
+                        child: widget.similarResponse.isWatchList
+                            ? const Icon(
+                          Icons.check,
+                          color: AppTheme.white,
+                          size: 18,
+                        )
+                            : const Icon(
                           Icons.add,
                           color: AppTheme.white,
                           size: 18,
@@ -101,7 +142,8 @@ class MoreLikeThis extends StatelessWidget {
                       width: 5,
                     ),
                     Text(
-                      similarResponse.voteAverage?.toStringAsFixed(1) ?? "",
+                      widget.similarResponse.voteAverage?.toStringAsFixed(1) ??
+                          "",
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                             fontSize: 10,
                           ),
@@ -112,7 +154,7 @@ class MoreLikeThis extends StatelessWidget {
                   height: 5,
                 ),
                 Text(
-                  similarResponse.title ?? "",
+                  widget.similarResponse.title ?? "",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -123,7 +165,7 @@ class MoreLikeThis extends StatelessWidget {
                   height: 5,
                 ),
                 Text(
-                  similarResponse.releaseDate ?? "",
+                  widget.similarResponse.releaseDate ?? "",
                   style: Theme.of(context)
                       .textTheme
                       .titleLarge
