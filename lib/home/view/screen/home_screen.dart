@@ -17,10 +17,10 @@ class _HomeScreenState extends State<HomeScreen> {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
   int currentIndex = 0;
   List<Widget> tabs = [
-    HomeDetails(),
-    Search(),
-    Browse(),
-    Watchlist(),
+    const HomeDetails(),
+    const Search(),
+    const Browse(),
+    const Watchlist(),
   ];
 
   @override
@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           BottomNavigationBarItem(
-            label: "Watchlist",
+            label: "WatchList",
             icon: Icon(
               Icons.collections_bookmark_sharp,
               size: 33,

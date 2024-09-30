@@ -4,11 +4,13 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
   static const Color primary = Color(0xffFFBB3B);
-  static const Color black = Color(0xff1E1E1E);
+
+  static const Color black = Color(0xff121312);
+  static const Color green = Color(0xff48CFAD);
+
   static const Color gray = Color(0xffC6C6C6);
   static const Color white = Color(0xffffffff);
-  static const Color darkGray = Color(0xff514F4F);
-
+  static const Color darkGray = Color(0xff282A28);
   static ThemeData lightTheme = ThemeData(
       scaffoldBackgroundColor: black,
       appBarTheme: AppBarTheme(
@@ -32,6 +34,10 @@ class AppTheme {
       ),
       progressIndicatorTheme: const ProgressIndicatorThemeData(
         color: primary,
+      ),
+      dividerTheme: const DividerThemeData(
+        thickness: 1,
+        color: gray,
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         type: BottomNavigationBarType.fixed,
