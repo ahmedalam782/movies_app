@@ -31,7 +31,7 @@ class HomeDetailsRepository {
     return await firebaseCloud.getMoviesFromFirebase();
   }
 
-  deleteMovies(String id) async {
+  Future<void> deleteMovies(String id) async {
     return await firebaseCloud.deleteMoviesFromFirebase(id);
   }
 }

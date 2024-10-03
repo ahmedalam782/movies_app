@@ -44,6 +44,7 @@ class MoviesWatchlistItem extends StatelessWidget {
                     moviesWatchlist.id.toString(),
                   );
                 },
+                spacing: 8,
                 backgroundColor: Colors.red,
                 foregroundColor: AppTheme.white,
                 icon: Icons.delete,
@@ -85,7 +86,11 @@ class MoviesWatchlistItem extends StatelessWidget {
                         start:
                             moviesWatchlist.backdropPath == null ? -4 : -18.5,
                         child: IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            moviesViewModel.deleteMovies(
+                              moviesWatchlist.id.toString(),
+                            );
+                          },
                           icon: const Stack(
                             alignment: Alignment.center,
                             clipBehavior: Clip.none,

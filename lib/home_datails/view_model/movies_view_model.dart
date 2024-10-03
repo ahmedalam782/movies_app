@@ -122,7 +122,30 @@ class MoviesViewModel extends ChangeNotifier {
   }
 
   deleteMovies(String id) async {
-    await repository.deleteMovies(id);
+    await repository
+        .deleteMovies(id)
+        .then(
+          (_) => Fluttertoast.showToast(
+            msg: "Movie has deleted from WatchList successfully ",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: AppTheme.primary,
+            textColor: AppTheme.white,
+            fontSize: 18.0,
+          ),
+        )
+        .catchError(
+          (onError) => Fluttertoast.showToast(
+            msg: onError.toString(),
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: AppTheme.green,
+            textColor: AppTheme.black,
+            fontSize: 22.0,
+          ),
+        );
     await getPopularMovies();
     await getUpcomingMovies();
     await getTopRatedMovies();
