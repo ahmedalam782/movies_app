@@ -5,6 +5,8 @@
 
 Welcome to the Movies App! This Flutter application allows users to browse and discover a wide range of movies. The app is built using the MVVM architecture, leveraging Provider for state management, Firebase for backend services, and a Repository pattern for efficient data handling.
 
+<img width="60%" src="https://github.com/user-attachments/assets/3d503c4d-b23c-46a2-a191-32a5093854d9" />
+
 <img width="40%" src="https://github.com/user-attachments/assets/35ae2077-edf5-42a7-b52f-c0efe0cefb70" />
 <img width="40%" src="https://github.com/user-attachments/assets/f9cad0f8-2301-41d0-b21a-be411d936492" />
 
